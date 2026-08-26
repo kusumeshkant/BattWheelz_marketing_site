@@ -1,0 +1,42 @@
+/* The brand-highlighted words in the heading and the closing banner. */
+.highlight {
+  background-image: var(--bw-color-gradient-accent-sweep);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/*
+ * The closing statement under the steps. A light band that runs the width of
+ * the section's container, closing the sequence rather than adding a fifth step.
+ */
+.banner {
+  display: flex;
+  align-items: center;
+  gap: var(--bw-space-5);
+  margin-block-start: var(--bw-space-9);
+  padding: var(--bw-space-6) var(--bw-space-7);
+  border-radius: var(--bw-radius-xl);
+  background-color: var(--bw-color-surface-raised);
+  border: 1px solid var(--bw-color-border-subtle);
+}
+
+.bannerIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: 3rem;
+  block-size: 3rem;
+  border-radius: var(--bw-radius-lg);
+  background-color: var(--bw-color-brand-primary-soft);
+  color: var(--bw-color-brand-primary-text);
+}
+
+.bannerText {
+  font-family: var(--bw-font-display);
+  font-size: var(--bw-text-xl);
+  font-weight: var(--bw-weight-semibold);
+  line-height: var(--bw-leading-snug);
+  text-wrap: balance;
+}

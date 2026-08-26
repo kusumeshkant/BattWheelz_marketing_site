@@ -1,16 +1,15 @@
 import Link from "next/link";
-import { about } from "@/content/siteContent";
+import { about } from "@/content/pagesContent";
 import { Section, SectionHeader, Card, Stagger, StaggerItem } from "@/components/common";
 import styles from "./Ecosystem.module.css";
 
 const { ecosystem } = about;
 
 /**
- * The pieces behind a lease — manufacturing, fleet ops, charging, platforms.
+ * The four parts of the EMAAS ecosystem: vehicles, operations, infrastructure
+ * and the partners riding on top of it.
  *
- * Reframed from the reference's product/service grid to match what Battwheelz
- * actually is: a leasing-only operator, not a multi-service marketplace. The
- * "delivery platforms" card names no companies deliberately.
+ * The partners card names no companies deliberately.
  */
 export function Ecosystem() {
   return (

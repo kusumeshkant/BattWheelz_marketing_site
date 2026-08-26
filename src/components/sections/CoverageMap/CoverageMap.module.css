@@ -1,0 +1,147 @@
+/*
+ * Dark section. The dot grid is a low-contrast ground so the pins read as the
+ * only bright things on it — the map is context, the cities are the content.
+ */
+
+.header {
+  color: var(--bw-color-text-inverse);
+}
+
+.wrap {
+  margin-block-start: var(--bw-space-7);
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: var(--bw-space-6);
+  margin-block-end: var(--bw-space-5);
+  color: var(--bw-color-text-inverse-secondary);
+}
+
+.legendItem {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bw-space-2);
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-medium);
+}
+
+.dot {
+  inline-size: 0.625rem;
+  block-size: 0.625rem;
+  border-radius: 50%;
+  flex: none;
+}
+
+/* Live: solid gold. Upcoming: hollow, so it cannot read as "operating". */
+.dotLive {
+  background-color: var(--bw-color-brand-primary);
+}
+
+.dotUpcoming {
+  border: 2px dashed var(--bw-color-text-inverse-muted);
+}
+
+/* The map is wide; on a narrow screen it scrolls rather than shrinking to
+   illegibility. The lists below carry the same information either way. */
+.mapScroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.map {
+  display: block;
+  inline-size: 100%;
+  min-inline-size: 34rem;
+  block-size: auto;
+}
+
+/* Bright enough to read as a map, dim enough that the pins stay the subject. */
+.land circle {
+  fill: var(--bw-color-text-inverse-muted);
+  opacity: 0.4;
+}
+
+.halo {
+  fill: var(--bw-color-brand-primary);
+  opacity: 0.3;
+}
+
+.pinLive .pin {
+  fill: var(--bw-color-brand-primary);
+}
+
+.pinUpcoming .pin {
+  fill: none;
+  stroke: var(--bw-color-brand-secondary);
+  stroke-width: 1.6;
+  stroke-dasharray: 2.4 2;
+}
+
+.leader {
+  stroke: var(--bw-color-text-inverse-muted);
+  stroke-width: 0.8;
+}
+
+/*
+ * Sized in USER UNITS, not screen px — the SVG scales, so this is 10 units of a
+ * 383-unit-tall viewBox. At 13 the Dubai and Pune baselines sat ~11 units apart
+ * and the two labels collided.
+ */
+.pinLabel {
+  font-family: var(--bw-font-body);
+  font-size: 10px;
+  font-weight: 600;
+  fill: var(--bw-color-text-inverse);
+}
+
+.pinUpcoming .pinLabel {
+  fill: var(--bw-color-text-inverse-secondary);
+}
+
+.lists {
+  display: grid;
+  gap: var(--bw-space-6);
+  margin-block-start: var(--bw-space-7);
+}
+
+.listHeading {
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+  letter-spacing: var(--bw-tracking-widest);
+  text-transform: uppercase;
+  color: var(--bw-color-brand-primary-on-dark);
+  margin-block-end: var(--bw-space-3);
+}
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bw-space-3);
+}
+
+.city {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bw-space-2);
+  padding: var(--bw-space-2) var(--bw-space-4);
+  border-radius: var(--bw-radius-pill);
+  background-color: var(--bw-color-surface-tint-on-dark);
+  border: 1px solid var(--bw-color-border-inverse);
+  color: var(--bw-color-text-inverse);
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+}
+
+.country {
+  font-weight: var(--bw-weight-regular);
+  color: var(--bw-color-text-inverse-muted);
+}
+
+@media (min-width: 768px) {
+  .lists {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}

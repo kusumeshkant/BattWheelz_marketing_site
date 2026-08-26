@@ -94,10 +94,10 @@ export function SavingsCalculator() {
 
             <div className={styles.column}>
               <h3 className={styles.columnTitle}>{L.battwheelz}</h3>
-              <Line label={L.lease} value={formatRupees(result.battwheelz.lease)} />
+              <Line label={L.subscription} value={formatRupees(result.battwheelz.subscription)} />
               <Line label={L.charging} value={formatRupees(result.battwheelz.charging)} />
               {/* Servicing and insurance have no figure here because they are
-                  inside the lease rate — saying "included" is the point. */}
+                  inside the subscription rate — saying "included" is the point. */}
               <Line
                 label={L.maintenance}
                 value={<span className={styles.included}>{L.included}</span>}

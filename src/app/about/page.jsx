@@ -1,4 +1,4 @@
-import { about } from "@/content/siteContent";
+import { about } from "@/content/pagesContent";
 import { buildMetadata } from "@/utils/seo";
 import { Section, SectionHeader, StatBand } from "@/components/common";
 import {

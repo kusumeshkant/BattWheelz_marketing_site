@@ -5,10 +5,10 @@ import {
   Hero,
   WhatsIncluded,
   LiveStats,
+  PartnerChips,
   WhyChoose,
   HowToStart,
   SavingsCalculator,
-  FleetImpact,
   Testimonials,
   FaqAccordion,
   ClosingCta,
@@ -39,10 +39,13 @@ export default function HomePage() {
       <WaveDivider />
       <WhatsIncluded />
       <LiveStats />
+
+      {/* Partner NAMES only — no logos, pending per-company permission. */}
+      <PartnerChips content={home.deliveryPartners} id="delivery-partners" tone="raised" />
+      <PartnerChips content={home.ecosystemPartners} id="ecosystem-partners" />
       <WhyChoose />
       <HowToStart />
       <SavingsCalculator />
-      <FleetImpact />
       <Testimonials />
       <FaqAccordion />
       <ClosingCta />

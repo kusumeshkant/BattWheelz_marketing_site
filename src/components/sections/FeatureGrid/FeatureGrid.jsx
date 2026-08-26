@@ -11,7 +11,7 @@ import styles from "./FeatureGrid.module.css";
  * than forks of this file.
  *
  * @param {object} props
- * @param {{eyebrow?:string, heading:string, subheading?:string, items:Array}} props.content
+ * @param {{eyebrow?:string, heading:string, subheading?:string, items:Array, footnote?:string}} props.content
  * @param {string} props.id            Anchor + aria-labelledby target.
  * @param {2|3|4} [props.columns]
  * @param {"default"|"media"} [props.cardLayout]
@@ -47,6 +47,7 @@ export function FeatureGrid({
               icon={item.icon}
               title={item.title}
               body={item.body}
+              label={item.label}
               href={item.href}
               layout={cardLayout}
               tone={cardTone}
@@ -54,6 +55,9 @@ export function FeatureGrid({
           </StaggerItem>
         ))}
       </Stagger>
+
+      {/* Optional closing line under the grid. */}
+      {content.footnote ? <p className={styles.footnote}>{content.footnote}</p> : null}
     </Section>
   );
 }

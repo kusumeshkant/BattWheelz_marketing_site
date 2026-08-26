@@ -1,3 +1,4 @@
+import { Icon } from "@/assets/icons";
 import { Stagger, StaggerItem } from "@/components/common/AnimatedReveal";
 import clsx from "@/utils/clsx";
 import styles from "./StepFlow.module.css";
@@ -17,7 +18,7 @@ import styles from "./StepFlow.module.css";
  * tech.
  *
  * @param {object} props
- * @param {Array<{id:string,title:string,body:string}>} props.steps
+ * @param {Array<{id:string,title:string,body:string,icon?:string,stat?:object}>} props.steps
  * @param {"light"|"dark"} [props.tone]
  * @param {number} [props.headingLevel]
  */
@@ -36,8 +37,25 @@ export function StepFlow({ steps, tone = "dark", headingLevel = 3, className }) 
             {index + 1}
           </span>
           <div className={styles.body}>
+            {/* Both optional — the home page's flow passes neither. */}
+            {step.icon ? (
+              <span className={styles.stepIcon} aria-hidden="true">
+                <Icon name={step.icon} size={22} />
+              </span>
+            ) : null}
+
             <Heading className={styles.title}>{step.title}</Heading>
             <p>{step.body}</p>
+
+            {step.stat ? (
+              <p className={styles.stat}>
+                <span className={styles.statIcon} aria-hidden="true">
+                  <Icon name={step.stat.icon} size={16} />
+                </span>
+                <strong className={styles.statValue}>{step.stat.value}</strong>
+                <span className={styles.statCaption}>{step.stat.caption}</span>
+              </p>
+            ) : null}
           </div>
         </StaggerItem>
       ))}

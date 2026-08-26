@@ -1,4 +1,4 @@
-import { about } from "@/content/siteContent";
+import { about } from "@/content/pagesContent";
 import { Icon } from "@/assets/icons";
 import { Container, Button, Stagger, StaggerItem } from "@/components/common";
 import styles from "./AboutHero.module.css";

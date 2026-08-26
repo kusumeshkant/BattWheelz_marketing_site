@@ -1,0 +1,121 @@
+.environmental {
+  max-inline-size: 46rem;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.body {
+  margin-block-start: var(--bw-space-5);
+  font-size: var(--bw-text-lg);
+  line-height: var(--bw-leading-relaxed);
+  color: var(--bw-color-text-secondary);
+}
+
+.riders {
+  margin-block-start: var(--bw-section-sm);
+  padding-block-start: var(--bw-section-sm);
+  border-block-start: 1px solid var(--bw-color-border-subtle);
+}
+
+/*
+ * Single column by default. Two columns below ~560px left a 118px track for
+ * labels like "Socio-Economic Upliftment" next to a 44px icon chip, which
+ * overflowed the page at 320px.
+ */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--bw-space-4);
+  margin-block-start: var(--bw-space-7);
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: var(--bw-space-4);
+  padding: var(--bw-space-4) var(--bw-space-5);
+  border-radius: var(--bw-radius-lg);
+  background-color: var(--bw-color-surface-page);
+  border: 1px solid var(--bw-color-border-subtle);
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+  line-height: var(--bw-leading-snug);
+}
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: var(--bw-radius-md);
+  background-color: var(--bw-color-brand-primary-soft);
+  color: var(--bw-color-brand-primary-text);
+}
+
+@media (min-width: 560px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+/* Merged stat row ---------------------------------------------------------- */
+
+.stats {
+  display: grid;
+  gap: var(--bw-space-5);
+  margin-block-start: var(--bw-space-8);
+  text-align: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--bw-space-1);
+}
+
+.statIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  margin-block-end: var(--bw-space-2);
+  border-radius: var(--bw-radius-md);
+  background-color: var(--bw-color-brand-primary-soft);
+  color: var(--bw-color-brand-primary-text);
+}
+
+/*
+ * The placeholder em dash is deliberately the same size as a real figure would
+ * be, so dropping numbers in later does not reflow the row.
+ */
+.statValue {
+  font-family: var(--bw-font-display);
+  font-size: var(--bw-text-3xl);
+  font-weight: var(--bw-weight-bold);
+  line-height: 1;
+}
+
+.statLabel {
+  font-weight: var(--bw-weight-semibold);
+}
+
+.statCaption {
+  font-size: var(--bw-text-sm);
+  color: var(--bw-color-text-muted);
+}
+
+@media (min-width: 700px) {
+  .stats {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}

@@ -9,6 +9,8 @@
 export const routes = {
   home: "/",
   about: "/about",
+  impact: "/impact",
+  greequity: "/greequity",
   contact: "/contact",
 
   // Offering pages
@@ -44,6 +46,8 @@ export const routes = {
 export const sitemapRoutes = [
   { path: routes.home, changeFrequency: "monthly", priority: 1.0 },
   { path: routes.about, changeFrequency: "yearly", priority: 0.7 },
+  { path: routes.impact, changeFrequency: "yearly", priority: 0.6 },
+  { path: routes.greequity, changeFrequency: "yearly", priority: 0.6 },
   { path: routes.contact, changeFrequency: "yearly", priority: 0.6 },
 
   { path: routes.b2b, changeFrequency: "monthly", priority: 0.8 },

@@ -7,10 +7,11 @@ export { default as LiveStats } from "./LiveStats";
 export { default as WhyChoose } from "./WhyChoose";
 export { default as HowToStart } from "./HowToStart";
 export { default as SavingsCalculator } from "./SavingsCalculator";
-export { default as FleetImpact } from "./FleetImpact";
 export { default as Testimonials } from "./Testimonials";
 export { default as FaqAccordion } from "./FaqAccordion";
 export { default as ClosingCta } from "./ClosingCta";
+export { default as PartnerChips } from "./PartnerChips";
+export { default as CoverageMap } from "./CoverageMap";
 
 /* Generic, content-driven — used by every inner page */
 export { default as PageHero } from "./PageHero";
@@ -25,6 +26,7 @@ export { default as MissionVision } from "./MissionVision";
 export { default as Roadmap } from "./Roadmap";
 export { default as TeamGrid } from "./TeamGrid";
 export { default as Ecosystem } from "./Ecosystem";
+export { default as Impact } from "./Impact";
 export { default as AboutCta } from "./AboutCta";
 
 /* Shared */

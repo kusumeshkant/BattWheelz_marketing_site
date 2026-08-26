@@ -11,6 +11,8 @@
  * one is: drop the new file in this folder, change the import path below.
  */
 
+import unitOnDarkSrc from "./unit-on-dark.png";
+import unitOnLightSrc from "./unit-on-light.jpeg";
 import placeholderHeroSrc from "./placeholder-hero.svg";
 import placeholderRiderSrc from "./placeholder-rider.svg";
 import placeholderFleetSrc from "./placeholder-fleet.svg";
@@ -34,6 +36,37 @@ import srijanSarkarSrc from "./portrait-srijan-sarkar.jpeg";
 import ashishBhatiaSrc from "./portrait-ashish-bhatia.jpeg";
 import sanjivMitalSrc from "./portrait-sanjiv-mital.jpeg";
 import digbijayaMahapatraSrc from "./portrait-digbijaya-mahapatra.jpg";
+
+/**
+ * The unit photograph, supplied in TWO versions — one shot on a dark ground and
+ * one on a light ground.
+ *
+ * This is NOT a light/dark mode: the site has no theme toggle. It is about which
+ * version suits the SECTION the photo is placed in. Dropping the light-ground
+ * version onto the black hero leaves a white rectangle floating on black; the
+ * dark-ground version merges into it. Pick by surface, not by user preference.
+ *
+ * Use `resolveThemedImage(unitPhoto, "dark" | "light")` at the call site.
+ */
+export const unitPhoto = {
+  onDark: { src: unitOnDarkSrc, alt: "A Battwheelz electric delivery bike" },
+  onLight: { src: unitOnLightSrc, alt: "A Battwheelz electric delivery bike" },
+};
+
+/**
+ * Picks the version matching the surface a themed image is being placed on.
+ *
+ * A plain function rather than a wrapper component, so callers keep full control
+ * of next/image's props — `priority` on the hero's LCP image especially, which a
+ * wrapper would have to re-expose one prop at a time.
+ *
+ * Falls back to the dark version: every themed image on this site so far sits on
+ * the dark hero, so an omitted surface should give the common case rather than
+ * a broken one.
+ */
+export function resolveThemedImage(image, surface = "dark") {
+  return surface === "light" ? image.onLight : image.onDark;
+}
 
 export const placeholderHero = {
   src: placeholderHeroSrc,
@@ -107,6 +140,7 @@ export const placeholderRiderAvatars = [
 ];
 
 const images = {
+  unitPhoto,
   placeholderHero,
   placeholderRider,
   placeholderFleet,

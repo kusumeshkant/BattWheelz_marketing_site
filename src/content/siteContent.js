@@ -21,7 +21,7 @@
 import { siteUrl } from "@/config/env";
 import { routes } from "@/utils/constants";
 import {
-  placeholderHero,
+  unitPhoto,
   placeholderRider,
   placeholderFleet,
   placeholderHub,
@@ -36,10 +36,10 @@ import {
 export const brand = {
   name: "Battwheelz",
   legalName: "Battwheelz Mobility Private Limited", // PLACEHOLDER
-  tagline: "Electric bikes, leased to the people who ride for a living.",
+  tagline: "Electric bikes on subscription, for the people who ride for a living.",
   foundedYear: 2024, // PLACEHOLDER
   contact: {
-    email: "hello@battwheelz.com", // PLACEHOLDER
+    email: "marketing@battwheelz.com", // PLACEHOLDER
     phoneDisplay: "+91 00000 00000", // PLACEHOLDER
     phoneHref: "tel:+910000000000", // PLACEHOLDER
     address: {
@@ -72,10 +72,12 @@ export const navigation = {
   primary: [
     { label: "Home", href: routes.home },
     { label: "About us", href: routes.about },
+    { label: "Impact", href: routes.impact },
+    { label: "Greequity", href: routes.greequity },
     {
       label: "For Riders",
       items: [
-        { label: "B2B", href: routes.b2b },
+        { label: "3PL", href: routes.b2b },
         { label: "Rent to Own", href: routes.rentToOwn },
       ],
     },
@@ -83,7 +85,7 @@ export const navigation = {
       label: "For Partners",
       items: [
         { label: "FoCO", href: routes.foco },
-        { label: "Last Mile Delivery (3PL)", href: routes.lastMile },
+        { label: "Last Mile Delivery", href: routes.lastMile },
       ],
     },
     {
@@ -104,7 +106,7 @@ export const navigation = {
 
 export const footer = {
   blurb:
-    "Battwheelz builds, owns and maintains electric two-wheelers, and leases them to gig delivery riders on fixed plans. One rider, one bike, one rate, for as long as the lease runs.", // PLACEHOLDER
+    "Battwheelz is an EMAAS platform connecting electric mobility, riders, fleet operations and technology into one smarter ecosystem. We make EV mobility more accessible, connected and scalable — built around the people and businesses that move every day.",
   /**
    * Four columns, matching the agreed structure. Every href resolves to a real
    * route — a footer link that 404s is worse than no link, because the footer is
@@ -116,13 +118,15 @@ export const footer = {
       links: [
         { label: "Home", href: routes.home },
         { label: "About us", href: routes.about },
+        { label: "Impact", href: routes.impact },
+        { label: "Greequity", href: routes.greequity },
         { label: "Investor relations", href: routes.investors },
       ],
     },
     {
       title: "For Riders",
       links: [
-        { label: "B2B", href: routes.b2b },
+        { label: "3PL", href: routes.b2b },
         { label: "Rent to own", href: routes.rentToOwn },
       ],
     },
@@ -130,7 +134,7 @@ export const footer = {
       title: "For Partners",
       links: [
         { label: "FoCO", href: routes.foco },
-        { label: "Last mile delivery (3PL)", href: routes.lastMile },
+        { label: "Last mile delivery", href: routes.lastMile },
       ],
     },
     {
@@ -162,16 +166,16 @@ export const seo = {
    */
   siteUrl,
   titleTemplate: "%s | " + brand.name,
-  defaultTitle: "Battwheelz — EV bike leasing for gig delivery riders",
+  defaultTitle: "Battwheelz — EV bike subscriptions for gig delivery riders",
   defaultDescription:
-    "Battwheelz leases electric two-wheelers to gig delivery riders on fixed daily, weekly and monthly plans. Servicing, insurance and roadside support included, and no mid-lease repricing.", // PLACEHOLDER
+    "Battwheelz puts electric two-wheelers under gig delivery riders on fixed daily, weekly and monthly subscription plans. Servicing, insurance and roadside support included, and no mid-subscription repricing.", // PLACEHOLDER
   keywords: [
-    "EV bike leasing",
+    "EV bike subscription",
     "electric two-wheeler rental",
     "gig delivery rider vehicle",
-    "delivery bike lease India",
+    "delivery bike subscription India",
     "electric scooter for delivery",
-    "EV fleet leasing",
+    "EV fleet subscription",
   ],
   locale: "en_IN",
   twitterHandle: "@battwheelz", // PLACEHOLDER
@@ -180,7 +184,7 @@ export const seo = {
     url: "/og-image.png",
     width: 1200,
     height: 630,
-    alt: "Battwheelz — electric bikes leased to gig delivery riders",
+    alt: "Battwheelz — electric bikes on subscription for gig delivery riders",
   },
 };
 
@@ -219,14 +223,14 @@ export const journeySteps = [
     summary: "Pick a plan, collect the bike from your nearest hub.",
     detail:
       "Choose a daily, weekly, monthly or rent-to-own plan. We assign a specific bike to you from your nearest hub, and your daily rate is locked to that plan from the moment it is assigned.", // PLACEHOLDER
-    note: "Your rate never changes mid-lease.", // PLACEHOLDER
+    note: "Your rate never changes mid-subscription.", // PLACEHOLDER
   },
   {
     id: "ride",
     title: "Start earning",
     summary: "Ride. We handle servicing, insurance and support.",
     detail:
-      "The bike is yours for the length of the lease. Servicing, wear parts, insurance and roadside recovery are ours to carry, and support is a ticket away in the rider app.", // PLACEHOLDER
+      "The bike is yours for as long as your subscription runs. Servicing, wear parts, insurance and roadside recovery are ours to carry, and support is a ticket away in the rider app.", // PLACEHOLDER
     note: "A bike off the road is our cost, not yours.", // PLACEHOLDER
   },
 ];
@@ -237,7 +241,7 @@ export const journeySteps = [
 
 export const home = {
   meta: {
-    title: "EV bike leasing for gig delivery riders",
+    title: "EV bike subscriptions for gig delivery riders",
     description: seo.defaultDescription,
     path: routes.home,
   },
@@ -272,11 +276,12 @@ export const home = {
     secondaryCta: { label: "See how it works", href: routes.home + "#how-to-start" },
     /** Short proof points under the CTAs. Three max — more than that wraps badly. */
     assurances: [
-      "No mid-lease price changes",
+      "No mid-subscription price changes",
       "Servicing and insurance included",
       "Live tracking and support",
     ],
-    image: placeholderHero,
+    // Two-surface photo; the hero resolves the dark-ground version.
+    image: unitPhoto,
     /** Floating stat card overlaid on the hero image. */
     badge: {
       value: "₹0",
@@ -287,7 +292,7 @@ export const home = {
   },
 
   /**
-   * SECTION 2 — what the lease contains.
+   * SECTION 2 — what the subscription contains.
    *
    * Deliberately the TANGIBLE list: the things a rider receives. Kept distinct
    * from `whyChoose` below, which is about how we operate. If you find yourself
@@ -305,7 +310,7 @@ export const home = {
         icon: "bolt",
         title: "Vehicle and battery",
         href: routes.b2b + "#plan",
-        body: "A road-ready electric two-wheeler with its battery pack, assigned to you for the length of the lease.", // PLACEHOLDER
+        body: "A road-ready electric two-wheeler with its battery pack, assigned to you for as long as your subscription runs.", // PLACEHOLDER
       },
       {
         icon: "wrench",
@@ -317,7 +322,7 @@ export const home = {
         icon: "shield",
         title: "Insurance and recovery",
         href: routes.b2b + "#plan",
-        body: "Vehicle insurance and roadside recovery are inside the lease from day one.", // PLACEHOLDER
+        body: "Vehicle insurance and roadside recovery are included in your subscription from day one.", // PLACEHOLDER
       },
       {
         icon: "pin",
@@ -329,7 +334,7 @@ export const home = {
         icon: "lock",
         title: "A rate that cannot move",
         href: routes.rentToOwn,
-        body: "Your daily rate is fixed to your plan when the bike is assigned, and stays fixed for the whole lease.", // PLACEHOLDER
+        body: "Your daily rate is fixed to your plan when the bike is assigned, and stays fixed for the whole subscription.", // PLACEHOLDER
       },
       {
         icon: "support",
@@ -369,7 +374,7 @@ export const home = {
   /**
    * SECTION 4 — why choose us.
    *
-   * The OPERATING advantages, not the contents of the lease. See the note on
+   * The OPERATING advantages, not the contents of the subscription. See the note on
    * `whatsIncluded` above for the split.
    */
   whyChoose: {
@@ -408,7 +413,7 @@ export const home = {
     subheading:
       "No showroom, no down payment, no haggling. The whole thing runs from your phone and your nearest hub.", // PLACEHOLDER
     steps: journeySteps,
-    cta: { label: "See leasing options", href: routes.rentToOwn },
+    cta: { label: "See subscription options", href: routes.rentToOwn },
     image: placeholderRider,
   },
 
@@ -420,9 +425,9 @@ export const home = {
    * shows a rider a rupee figure and they will believe it, so these must be
    * replaced with figures the client can defend before this goes live.
    *
-   * The comparison is deliberately like-for-like: a Battwheelz lease includes
+   * The comparison is deliberately like-for-like: a Battwheelz subscription includes
    * the vehicle, so the petrol side has to include the cost of ACQUIRING a
-   * petrol bike (EMI) and insuring it. Comparing a lease against someone's
+   * petrol bike (EMI) and insuring it. Comparing a subscription against someone's
    * already-paid-for bike would flatter us and would not survive scrutiny.
    *
    * The same assumptions are shown to the visitor in the UI. They are not
@@ -434,7 +439,7 @@ export const home = {
     eyebrow: "Run the numbers",
     heading: "What a switch could be worth to you",
     subheading:
-      "Drag the slider to roughly how far you ride on a working day, and compare a Battwheelz lease against running a petrol bike you bought on finance.", // PLACEHOLDER
+      "Drag the slider to roughly how far you ride on a working day, and compare a Battwheelz subscription against running a petrol bike you bought on finance.", // PLACEHOLDER
     sliderLabel: "Distance you ride on a working day",
     sliderUnit: "km",
     sliderMin: 30,
@@ -445,18 +450,18 @@ export const home = {
     resultCaption: "compared with running your own petrol bike",
     breakdownLabels: {
       petrol: "Petrol bike, per month",
-      battwheelz: "Battwheelz lease, per month",
+      battwheelz: "Battwheelz subscription, per month",
       fuel: "Fuel",
       charging: "Charging",
       maintenance: "Servicing and repairs",
       emi: "Vehicle EMI",
       insurance: "Insurance",
-      lease: "Lease rate",
+      subscription: "Subscription rate",
       included: "Included",
       total: "Total",
     },
     negativeResult:
-      "At this distance a lease costs more than running your own bike. Talk to us about a lower-tier plan.", // PLACEHOLDER
+      "At this distance a subscription costs more than running your own bike. Talk to us about a lower-tier plan.", // PLACEHOLDER
     assumptionsTitle: "What this assumes",
     disclaimer:
       "Indicative estimate only, not a quote. Actual costs vary by city, plan and riding pattern.", // PLACEHOLDER
@@ -479,7 +484,7 @@ export const home = {
       "Petrol at ₹105/litre and 40 km/litre", // PLACEHOLDER
       "₹1,200/month servicing on a petrol bike", // PLACEHOLDER
       "₹3,500/month EMI and ₹700/month insurance on a petrol bike bought on finance", // PLACEHOLDER
-      "Battwheelz lease at ₹199/day, with charging at about ₹0.30/km", // PLACEHOLDER
+      "Battwheelz subscription at ₹199/day, with charging at about ₹0.30/km", // PLACEHOLDER
     ],
   },
 
@@ -491,20 +496,6 @@ export const home = {
    * unsubstantiated CO2 claim as actionable greenwashing. Do not publish these
    * until the client can show the calculation behind each one.
    */
-  fleetImpact: {
-    eyebrow: "Fleet impact",
-    heading: "What the fleet has done so far",
-    subheading:
-      "Every kilometre ridden electric is a kilometre not ridden on petrol. Across the fleet it adds up.", // PLACEHOLDER
-    items: [
-      { icon: "bolt", value: 48, suffix: "M", prefix: "", label: "Kilometres ridden electric", caption: "across the fleet" },
-      { icon: "rupee", value: 9.2, suffix: "Cr", prefix: "₹", label: "Fuel cost avoided", caption: "estimated, fleet-wide", decimals: 1 },
-      { icon: "shield", value: 7400, suffix: "t", label: "CO₂ emissions avoided", caption: "versus equivalent petrol two-wheelers" },
-    ],
-    disclaimer:
-      "Estimated figures pending independent verification.", // PLACEHOLDER
-  },
-
   /**
    * SECTION 8 — rider testimonials.
    *
@@ -539,7 +530,7 @@ export const home = {
           "The rate has not changed since the day I got the bike. I know exactly what I owe every week, and I can plan around it.", // PLACEHOLDER
         name: "Rider name", // PLACEHOLDER
         role: "Quick commerce, Hyderabad", // PLACEHOLDER
-        metric: "14 months on lease", // PLACEHOLDER
+        metric: "14 months on subscription", // PLACEHOLDER
         rating: 4.5, // PLACEHOLDER
         avatar: placeholderRiderAvatars[1],
       },
@@ -577,7 +568,7 @@ export const home = {
         id: "billing",
         question: "How is billing calculated?",
         answer:
-          "Your plan has a daily rate, which is fixed to your lease at the moment your bike is assigned. Your bill is that rate multiplied by the days of the rental. Part days round up to a full day, which is standard for daily vehicle rentals.", // PLACEHOLDER
+          "Your plan has a daily rate, which is fixed to your subscription at the moment your bike is assigned. Your bill is that rate multiplied by the days of the rental. Part days round up to a full day, which is standard for daily vehicle rentals.", // PLACEHOLDER
       },
       {
         id: "repricing",
@@ -589,13 +580,88 @@ export const home = {
         id: "switch",
         question: "Can I switch vehicles or plans?",
         answer:
-          "Yes. Close your current lease and start a new one — talk to us and we will work out the timing so you are not without a bike between the two.", // PLACEHOLDER
+          "Yes. Close your current subscription and start a new one — talk to us and we will work out the timing so you are not without a bike between the two.", // PLACEHOLDER
       },
       {
         id: "eligibility",
         question: "What do I need to qualify?",
         answer:
           "A valid driving licence, an Aadhaar for identity verification, a phone number, and a delivery platform you ride for. No credit check and no security deposit at application.", // PLACEHOLDER
+      },
+    ],
+  },
+
+  /**
+   * ================= PARTNER NAMES ARE RENDERED AS TEXT ONLY =================
+   * These are third-party company names. We do NOT hold permission to display
+   * their logos, so nothing here references a logo file and the sections render
+   * name chips instead.
+   *
+   * Swapping any one of these to a real logo requires WRITTEN PERMISSION FROM
+   * THAT COMPANY — per company, not per section. Displaying a partner's mark
+   * without it is a trademark problem, and doing it on a page that implies a
+   * commercial relationship compounds it. The repo's branding rule says the
+   * same thing: no third-party logos or assets.
+   *
+   * Naming a company as a partner is itself a claim. These lists came from the
+   * pitch deck; confirm each relationship is real and current before publishing.
+   * ===========================================================================
+   */
+  deliveryPartners: {
+    eyebrow: "Our network",
+    heading: "Trusted by delivery and commerce partners",
+    names: [
+      "Blinkit",
+      "BB Now",
+      "Swiggy",
+      "Zepto",
+      "Rapido",
+      "Licious",
+      "Amazon",
+      "Flipkart Minutes",
+      "Delhivery",
+      "Pidge",
+      "Zomato",
+    ],
+  },
+
+  ecosystemPartners: {
+    eyebrow: "Ecosystem",
+    heading: "Ecosystem partners",
+    groups: [
+      {
+        label: "EV OEM",
+        names: ["Lectrix", "Intellicar", "BG", "LocoNav", "iPower"],
+      },
+      {
+        label: "Capital",
+        names: [
+          "ICICI Bank",
+          "HDFC Bank",
+          "alt.mobility",
+          "AUTOVERT",
+          "MUFIN",
+          "Manappuram Finance",
+        ],
+      },
+      {
+        label: "Enterprise customers",
+        names: [
+          "BigBasket",
+          "Blinkit",
+          "Zepto",
+          "Instamart",
+          "Delhivery",
+          "Swiggy",
+          "Flipkart Minutes",
+          "Licious",
+          "Rapido",
+          "Zomato",
+        ],
+      },
+      {
+        label: "Energy infrastructure",
+        names: ["Kazam", "Battery Smart", "Indofast Energy", "Bolt.Earth"],
       },
     ],
   },
@@ -614,307 +680,6 @@ export const home = {
 /*  About                                                                     */
 /* -------------------------------------------------------------------------- */
 
-export const about = {
-  meta: {
-    title: "About us",
-    description:
-      "Battwheelz builds, owns and maintains electric two-wheelers, and leases them to India's gig delivery riders. Our mission, our team, and where we are headed.", // PLACEHOLDER
-    path: routes.about,
-  },
-
-  hero: {
-    headline: [
-      { text: "Building the fleet that " },
-      { text: "moves India", highlight: true },
-      { text: " forward." },
-    ],
-    /**
-     * Replaces the prose subheadline. Wording avoids "lease" per the ongoing
-     * move to subscription language — scoped to this section only; lease
-     * wording elsewhere on the site is unchanged and deliberate.
-     */
-    features: [
-      {
-        icon: "bolt",
-        title: "We build electric",
-        body: "Purpose-built two-wheelers for real-world India.",
-      },
-      {
-        icon: "shield",
-        title: "We own the fleet",
-        body: "End-to-end ownership for reliability you can count on.",
-      },
-      {
-        icon: "wrench",
-        title: "We keep it running",
-        body: "Servicing, maintenance and support — always ride-ready.",
-      },
-      {
-        icon: "rupee",
-        title: "We make it simple",
-        body: "One plan. One rate. Total clarity.",
-      },
-    ],
-    primaryCta: { label: "Partner with us", href: routes.contact },
-    secondaryCta: { label: "Meet the team", href: routes.about + "#team" },
-  },
-
-  /**
-   * PLACEHOLDER FIGURES — same standing caveat as every other stat on this
-   * site. Counted with the shared count-up treatment, not a second one.
-   */
-  stats: {
-    heading: "Where we are today",
-    subheading:
-      "A young company, deliberately built around owning the asset rather than brokering it.", // PLACEHOLDER
-    items: [
-      { icon: "bolt", value: 2400, suffix: "+", label: "Bikes owned", caption: "built and maintained by us" },
-      { icon: "support", value: 3200, suffix: "+", label: "Riders on lease", caption: "across active hubs" },
-      { icon: "pin", value: 3, suffix: "", label: "Cities and hubs", caption: "and growing" },
-      { icon: "chart", value: 97, suffix: "%", label: "Fleet uptime", caption: "rolling 30-day average" },
-    ],
-  },
-
-  story: {
-    eyebrow: "Our story",
-    heading: "Building the ecosystem that moves the future",
-    body: [
-      "BattWheelz was founded with a clear ambition: to accelerate the transition to smarter, cleaner and more connected electric mobility. Founded in 2019, BattWheelz began by addressing a critical gap in last-mile mobility—making electric vehicles more accessible, reliable and operationally efficient for businesses and riders.",
-      "What started with electric two-wheelers and delivery operations has evolved into a broader EV + AI ecosystem. BattWheelz brings together smart electric vehicles, fleet operations, technology, servicing, energy infrastructure and data-driven intelligence into one connected mobility platform.",
-      "Today, BattWheelz operates as an Electric Mobility as a Service (EMAAS) player, enabling businesses to access and operate electric mobility without having to build the entire ecosystem themselves. Our solutions span EV fleet deployment, trained delivery networks, technology-enabled fleet management and operational support across key Indian market."
-    ],
-    image: placeholderHub,
-  },
-
-  missionVision: {
-    heading: "Mission and vision",
-    subheading: "What we are for, and where it is meant to lead.",
-    items: [
-      {
-        icon: "bolt",
-        title: "Our mission",
-        body: "To take the cost and the risk of the vehicle off the rider, so that earning a living on two wheels does not start with taking on debt.", // PLACEHOLDER
-      },
-      {
-        icon: "chart",
-        title: "Our vision",
-        body: "A gig economy where the vehicle is infrastructure — maintained, connected and accountable — rather than a liability each worker carries alone.", // PLACEHOLDER
-      },
-    ],
-  },
-
-  /**
-   * Replaces the reference's historical timeline.
-   *
-   * Written deliberately as FORWARD-LOOKING GOALS, not as things that have
-   * happened — Battwheelz has no multi-year history to recount, and inventing
-   * one would be fabricating the company's past. Every target below is a
-   * PLACEHOLDER pending real company goals from the client.
-   */
-  roadmap: {
-    eyebrow: "What's next",
-    heading: "Where we are going",
-    subheading:
-      "Goals, not history. These are the things we are building towards — they are targets, and we will say so until they are not.", // PLACEHOLDER
-    steps: [
-      {
-        id: "cities",
-        title: "More cities",
-        body: "Open hubs in the delivery corridors riders actually work, rather than the ones easiest to reach.", // PLACEHOLDER
-      },
-      {
-        id: "fleet",
-        title: "A bigger fleet",
-        body: "Grow the owned fleet so a rider who needs a bike today is not waiting on a queue.", // PLACEHOLDER
-      },
-      {
-        id: "swap",
-        title: "A swap network",
-        body: "Battery swapping close to the hubs, so a flat pack costs minutes rather than the rest of a shift.", // PLACEHOLDER
-      },
-      {
-        id: "ownership",
-        title: "More routes to ownership",
-        body: "Widen rent-to-own so more riders finish a lease owning the bike outright.", // PLACEHOLDER
-      },
-    ],
-  },
-
-  /**
-   * ============== EVERY PERSON BELOW IS INVENTED. NOT REAL STAFF. ==============
-   * Names, roles, bios and portraits are all placeholders written to demonstrate
-   * the layout. The portraits are flat ILLUSTRATIONS, deliberately faceless, so
-   * they cannot be mistaken for photographs of real people.
-   *
-   * The section renders a visible notice saying so. Do not remove it until real
-   * team members, with their consent, replace this array. Publishing invented
-   * people as a company's leadership is a straightforward misrepresentation.
-   *
-   * `socials` hrefs are null on purpose: the icons render as inert placeholders
-   * rather than links to nowhere. Fill in a real URL and it becomes a link.
-   * ===========================================================================
-   */
-  team: {
-    eyebrow: "Our people",
-    heading: "Meet the team",
-    subheading: "The people building and running the fleet.",
-    /**
-     * Two groups under one section, not two sections — the eyebrow, notice,
-     * quote and group image above and below are shared, and splitting the
-     * section would duplicate all of them.
-     */
-    foundersHeading: "Meet our founders",
-    membersHeading: "Meet our team",
-    mentorHeading: "Meet our mentors",
-    founders: [
-      {
-        id: "tm1",
-        name: "Chetan Chaturvedi", // PLACEHOLDER
-        role: "Founder & MD", // PLACEHOLDER
-        bio: "A  visionary entrepreneur in renewable energy and electric vehicles, Chetan brings over 20 years of senior leadership experience from industry titans like Bharti, Amdocs, and Usha. After successfully founding Greequity to accelerate renewable energy adoption, he now spearheads Battwheelz, driving the transformation of last-mile logistics through innovative sustainable solutions.", // PLACEHOLDER
-        avatar: teamPortraits.chetanChaturvedi,
-        socials: [
-          // { network: "linkedin", href: null },
-          // { network: "instagram", href: null },
-          { network: "email", href: 'Chetan1@battwheelz.com' },
-        ],
-      },
-      {
-        id: "tm2",
-        name: "Sonika Chaturvedi", // PLACEHOLDER
-        role: "Co-founder & COO", // PLACEHOLDER
-        bio: "With 18 years of high-impact strategic experience at IBM, Accenture, and Wipro, Sonika is a seasoned expert in large-scale IT solutions, partnerships, and operations. She applies her deep technical expertise and track record of operational excellence to champion a technology-first approach within the EMAAS domain, ensuring the company scales with precision and efficiency.", // PLACEHOLDER
-        avatar: teamPortraits.sonikaChaturvedi,
-        socials: [
-          // { network: "linkedin", href: null },
-          // { network: "instagram", href: null },
-          { network: "email", href: 'Sonika@battwheelz.com' },
-        ],
-      },
-    ],
-    members: [
-      {
-        id: "tm3",
-        name: "Deepak Patil", // PLACEHOLDER
-        role: "Head of Fleet Management", // PLACEHOLDER
-        // PLACEHOLDER BIO — one-liner written by us, awaiting the client's own copy.
-        bio: "Keeps the fleet on the road — servicing, spares and uptime.",
-        avatar: teamPortraits.deepakPatil,
-        socials: [
-          // { network: "linkedin", href: null },
-          // { network: "instagram", href: null },
-          { network: "email", href: "Deepak.patil@battwheelz.com" },
-        ],
-      },
-      {
-        id: "tm4",
-        name: "Tejasvi Khedekar", // PLACEHOLDER
-        role: "Head of MIS", // PLACEHOLDER
-        // PLACEHOLDER BIO — one-liner written by us, awaiting the client's own copy.
-        bio: "Turns fleet and rider data into the numbers the team runs on.",
-        avatar: teamPortraits.tejasviKhedekar,
-        socials: [
-          // { network: "linkedin", href: null },
-          // { network: "instagram", href: null },
-          { network: "email", href: "Tejasvi@battwheelz.com" },
-        ],
-      },
-      {
-        id: "tm5",
-        name: "Naveen Kumar", // PLACEHOLDER
-        role: "Head of Operations", // PLACEHOLDER
-        // PLACEHOLDER BIO — one-liner written by us, awaiting the client's own copy.
-        bio: "Runs day-to-day hub operations across every active city.",
-        avatar: teamPortraits.naveenKumar,
-        socials: [
-          // { network: "linkedin", href: null },
-          // { network: "instagram", href: null },
-          { network: "email", href: "Naveenblr@battwheelz.com" },
-        ],
-      },
-      {
-        id: "tm6",
-        name: "Srijan Sarkar", // PLACEHOLDER
-        role: "Head of Alliances & Strategy", // PLACEHOLDER
-        // PLACEHOLDER BIO — one-liner written by us, awaiting the client's own copy.
-        bio: "Builds the partnerships that put more riders on Battwheelz bikes.",
-        avatar: teamPortraits.srijanSarkar,
-        socials: [
-          // { network: "linkedin", href: null },
-          // { network: "instagram", href: null },
-          { network: "email", href: "Srijan@battwheelz.com" },
-        ],
-      },
-    ],
-    mentor: [
-      {
-        id: "mn1",
-        name: "Ashish Bhatia",
-        role: "Co-Founder & CEO, India Accelerator | Co-Founder, Finvolve",
-        bio: "Ashish Bhatia is a technologist-turned-venture builder with over 25 years of experience. In 2017, he co-founded India Accelerator with the conviction that India's early-stage founders needed more than capital. Today, IA is one of India's most active founder platforms, with 250+ portfolio companies including Battwheelz, Indrajaal, STAGE, Dozee, Matter EV, Recur Club, Lawyered, IG Defence, etc. Under Ashish's able mentorship, Battwheelz has been able to show tremendous potential and has successfully raised funding from both Finvolve and IA. This continued engagement with BattWheelz is a testament to the company's potential and strategic direction.",
-        avatar: teamPortraits.ashishBhatia,
-      },
-      {
-        id: "mn2",
-        name: "Sanjiv Mital",
-        bio: "An IT industry stalwart, Sanjiv Mital leads an angel investing and mentoring organization. His extensive experience in corporate IT and e-governance includes roles as CEO of NISG and Bharti Telesoft. He has provided BattWheelz with strategic guidance and direction, helping us become one of the fastest growing EV startups in India. He is one of the first angels who invested and has further helped in fundraising efforts.",
-        avatar: teamPortraits.sanjivMital,
-      },
-      {
-        id: "mn3",
-        name: "Digbijaya Mahapatra",
-        bio: "With over 30 years of experience, Digbijaya Mahapatra has held leadership roles in companies like Bharti Telesoft, Mahindra-Comviva, and DishTV. As an angel investor and mentor, he plays a pivotal role in shaping BattWheelz's strategic initiatives.",
-        avatar: teamPortraits.digbijayaMahapatra,
-      },
-    ],
-  },
-
-  ecosystem: {
-    eyebrow: "How it fits together",
-    heading: "The parts that make a lease work",
-    subheading:
-      "Leasing a bike is the visible half. These are the pieces behind it.", // PLACEHOLDER
-    items: [
-      {
-        icon: "bolt",
-        title: "Manufacturing",
-        body: "Vehicles are registered at production, VIN and telematics unit together, before they ever reach a hub.", // PLACEHOLDER
-        cta: { label: "Fleet leasing", href: routes.b2b },
-      },
-      {
-        icon: "wrench",
-        title: "Fleet operations",
-        body: "Hubs handle assignment, servicing and returns, with ops staff who can see each bike's live state.", // PLACEHOLDER
-        cta: { label: "Last mile delivery", href: routes.lastMile },
-      },
-      {
-        icon: "pin",
-        title: "Charging and swap network",
-        body: "Charging at the hubs today, with battery swapping being built out alongside it.", // PLACEHOLDER
-        cta: { label: "What's next", href: routes.about + "#roadmap" },
-      },
-      {
-        icon: "support",
-        title: "Delivery platforms",
-        body: "Our riders work across food, grocery, pharmacy and parcel platforms. We supply the vehicle, not the work.", // PLACEHOLDER
-        cta: { label: "Partner with us", href: routes.contact },
-      },
-    ],
-  },
-
-  cta: {
-    eyebrow: "Work with us",
-    heading: "Ready to put riders on better bikes?",
-    body: "Whether you ride for a living or run a fleet that needs one, the conversation starts the same way.", // PLACEHOLDER
-    primaryCta: { label: "Partner with us", href: routes.contact },
-    secondaryCta: { label: "Lease a bike", href: routes.contact },
-  },
-};
-
-/* -------------------------------------------------------------------------- */
-/*  Contact page                                                              */
-/* -------------------------------------------------------------------------- */
-
 /**
  * The Contact page is the enquiry form and nothing else, so its copy lives in
  * `enquiryForm` below and only the page metadata is defined here.
@@ -923,7 +688,7 @@ export const contactPage = {
   meta: {
     title: "Contact",
     description:
-      "Talk to Battwheelz about leasing an electric bike as a gig delivery rider, or about a fleet partnership. One form, routed to the right team.", // PLACEHOLDER
+      "Talk to Battwheelz about subscribing to an electric bike as a gig delivery rider, or about a fleet partnership. One form, routed to the right team.", // PLACEHOLDER
     path: routes.contact,
   },
 };
@@ -958,7 +723,7 @@ export const enquiryForm = {
    * office address — see the note on the Contact page.
    */
   reasons: [
-    { id: "lease", label: "I want to lease a bike", hint: "For gig delivery riders" },
+    { id: "rider", label: "I want to become a Battwheelerz", hint: "For gig delivery riders" },
     { id: "rent-to-own", label: "I want to rent to own", hint: "Ride now, own it at the end" },
     { id: "fleet", label: "I run a fleet or platform", hint: "B2B and last-mile enquiries" },
     { id: "franchise", label: "Franchise enquiry", hint: "Running a Battwheelz hub" },

@@ -12,7 +12,7 @@ import styles from "./PageHero.module.css";
  * brand gradient is content, not markup.
  *
  * @param {object} props
- * @param {{eyebrow?:string, headline:Array, subheadline?:string, primaryCta?:object, secondaryCta?:object}} props.content
+ * @param {{eyebrow?:string, headline:Array, tagline?:string, subheadline?:string, primaryCta?:object, secondaryCta?:object}} props.content
  */
 export function PageHero({ content }) {
   return (
@@ -34,6 +34,13 @@ export function PageHero({ content }) {
               </span>
             ))}
           </StaggerItem>
+
+          {/* Optional line between the h1 and the body. */}
+          {content.tagline ? (
+            <StaggerItem as="p" className={styles.tagline}>
+              {content.tagline}
+            </StaggerItem>
+          ) : null}
 
           {content.subheadline ? (
             <StaggerItem as="p" className={styles.subheadline}>

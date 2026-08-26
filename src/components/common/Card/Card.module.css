@@ -127,3 +127,36 @@
 .media .body {
   text-wrap: pretty;
 }
+
+/* Optional ordinal badge --------------------------------------------------- */
+
+/*
+ * Opt-in via Card's `index` prop. Absolutely positioned, so a numbered card and
+ * an unnumbered one keep identical content layout — the badge never reflows the
+ * icon or the title.
+ */
+.card {
+  position: relative;
+}
+
+.index {
+  position: absolute;
+  inset-block-start: var(--bw-space-5);
+  inset-inline-end: var(--bw-space-5);
+  font-family: var(--bw-font-display);
+  font-size: var(--bw-text-lg);
+  font-weight: var(--bw-weight-bold);
+  line-height: 1;
+  color: var(--bw-color-border-strong);
+}
+
+/* Optional overline above the title. */
+.label {
+  display: block;
+  margin-block-end: var(--bw-space-1);
+  font-size: var(--bw-text-xs);
+  font-weight: var(--bw-weight-semibold);
+  letter-spacing: var(--bw-tracking-widest);
+  text-transform: uppercase;
+  color: var(--bw-color-brand-primary-text);
+}

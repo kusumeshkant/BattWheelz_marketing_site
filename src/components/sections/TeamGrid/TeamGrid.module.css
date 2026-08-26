@@ -63,7 +63,7 @@
    * or event shot cuts the head off and frames the torso. Biasing the crop
    * upward keeps the face in the slot across every photo we were given.
    * Per-person tuning is possible without touching CSS — set `photoPosition`
-   * on that person in siteContent.js and it overrides this inline.
+   * on that person in pagesContent.js and it overrides this inline.
    */
   object-position: 50% 20%;
 }
@@ -201,4 +201,26 @@ a.social:hover {
 
 .gridAutoHeight .card {
   block-size: auto;
+}
+
+/*
+ * Stack the card below 420px. Side-by-side leaves roughly a 76px text column at
+ * 320px, which clips names and bios mid-word. The square portrait keeps its
+ * shape; it just sits above the text instead of beside it.
+ */
+@media (max-width: 419px) {
+  .card {
+    flex-direction: column;
+  }
+
+  .photoWrap {
+    align-self: stretch;
+    inline-size: 100%;
+    max-inline-size: none;
+  }
+
+  .cardRound .photoWrap {
+    align-self: center;
+    inline-size: 9rem;
+  }
 }

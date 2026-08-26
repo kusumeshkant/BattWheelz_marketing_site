@@ -13,6 +13,127 @@
  */
 
 const PATHS = {
+  /** The rider-facing app. */
+  mobile: (
+    <>
+      <rect x="7" y="2.5" width="10" height="19" rx="2.5" />
+      <path d="M10.5 5.5h3" />
+      <path d="M11 18.5h2" />
+    </>
+  ),
+  /** Skills and training. */
+  graduation: (
+    <>
+      <path d="M3 9.5 12 5.5l9 4-9 4-9-4Z" />
+      <path d="M7 11.5v4.2c0 .5.3 1 .8 1.2 1.2.6 2.6.9 4.2.9s3-.3 4.2-.9c.5-.2.8-.7.8-1.2v-4.2" />
+      <path d="M20.5 10v4.5" />
+    </>
+  ),
+  /** Wellbeing. */
+  heart: (
+    <>
+      <path d="M12 19.5S4.5 14.8 4.5 9.9A3.9 3.9 0 0 1 12 8a3.9 3.9 0 0 1 7.5 1.9c0 4.9-7.5 9.6-7.5 9.6Z" />
+    </>
+  ),
+  /** A target / goal figure. */
+  target: (
+    <>
+      <circle cx="12" cy="12" r="8.25" />
+      <circle cx="12" cy="12" r="4.25" />
+      <circle cx="12" cy="12" r="0.75" />
+    </>
+  ),
+  /** Growth against a target. */
+  trendingUp: (
+    <>
+      <path d="m4 15.5 4.8-4.8 3 3L20 6" />
+      <path d="M15.5 6H20v4.5" />
+    </>
+  ),
+  /** AI and decisioning. */
+  brain: (
+    <>
+      <path d="M12 5.2v13.6" />
+      <path d="M12 6.5a3 3 0 0 0-5.6 1.4A2.8 2.8 0 0 0 5 12.6a3 3 0 0 0 2.2 4.6A2.8 2.8 0 0 0 12 18" />
+      <path d="M12 6.5a3 3 0 0 1 5.6 1.4A2.8 2.8 0 0 1 19 12.6a3 3 0 0 1-2.2 4.6A2.8 2.8 0 0 1 12 18" />
+    </>
+  ),
+  /** Onboard compute — the connected vehicle's brain. */
+  chip: (
+    <>
+      <rect x="7.5" y="7.5" width="9" height="9" rx="1.5" />
+      <path d="M10 3.5v4M14 3.5v4M10 16.5v4M14 16.5v4" />
+      <path d="M3.5 10h4M3.5 14h4M16.5 10h4M16.5 14h4" />
+    </>
+  ),
+  /** Partnership. */
+  handshake: (
+    <>
+      <path d="m3.5 12 3-3 4 3.5 1.5-1.3 4 3.4-2.2 2.2a2 2 0 0 1-2.7 0l-1.1-1" />
+      <path d="M13.5 9 16 6.8l4.5 4.4-3 3" />
+      <path d="M6.5 9 4 6.8 6.5 4.5l3 .8" />
+    </>
+  ),
+  /** The vehicle itself. */
+  scooter: (
+    <>
+      <circle cx="5.5" cy="17" r="2.75" />
+      <circle cx="18.5" cy="17" r="2.75" />
+      <path d="M8.25 17h7.1l-3.6-8.5H9.4" />
+      <path d="M15.35 17 18 8.5h-2.4" />
+      <path d="M14.6 5.5h2.1l1.8 3" />
+    </>
+  ),
+  /** Downtime we absorb — time off the road. */
+  clock: (
+    <>
+      <circle cx="12" cy="12" r="8.25" />
+      <path d="M12 7.5V12l3 1.8" />
+    </>
+  ),
+  /** A single rider. */
+  person: (
+    <>
+      <circle cx="12" cy="8.5" r="3.5" />
+      <path d="M5.5 20a6.5 6.5 0 0 1 13 0" />
+    </>
+  ),
+  /** Communities — riders and the people around them. */
+  people: (
+    <>
+      <circle cx="9.5" cy="8.5" r="3.25" />
+      <path d="M3.5 19.5a6 6 0 0 1 12 0" />
+      <path d="M16 5.6a3.25 3.25 0 0 1 0 5.9" />
+      <path d="M17.5 14.2a6 6 0 0 1 3 5.3" />
+    </>
+  ),
+  /** The fleet itself — delivery vehicles. */
+  truck: (
+    <>
+      <rect x="3" y="6.5" width="10.5" height="9" rx="1" />
+      <path d="M13.5 10h3.6l2.9 3v2.5h-6.5z" />
+      <circle cx="7" cy="17.5" r="1.8" />
+      <circle cx="16.5" cy="17.5" r="1.8" />
+    </>
+  ),
+  /** Connected vehicles — telemetry and intelligence. */
+  signal: (
+    <>
+      <path d="M12 18.5h.01" />
+      <path d="M8.8 15.3a4.5 4.5 0 0 1 6.4 0" />
+      <path d="M6 12.5a8.5 8.5 0 0 1 12 0" />
+      <path d="M3.3 9.7a12.5 12.5 0 0 1 17.4 0" />
+    </>
+  ),
+  /** Charging and swap infrastructure. */
+  plug: (
+    <>
+      <path d="M9 3.5v5" />
+      <path d="M15 3.5v5" />
+      <path d="M6.5 8.5h11v3a5.5 5.5 0 0 1-11 0z" />
+      <path d="M12 17v3.5" />
+    </>
+  ),
   /** A locked rate. */
   lock: (
     <>

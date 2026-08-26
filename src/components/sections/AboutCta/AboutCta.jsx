@@ -1,4 +1,4 @@
-import { about } from "@/content/siteContent";
+import { about } from "@/content/pagesContent";
 import { Section, Eyebrow, Button, AnimatedReveal } from "@/components/common";
 import styles from "./AboutCta.module.css";
 

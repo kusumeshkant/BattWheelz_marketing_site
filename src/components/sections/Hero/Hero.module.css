@@ -90,12 +90,23 @@
   position: relative;
 }
 
+/*
+ * No border and no shadow.
+ *
+ * Both were right for the illustrated placeholder that used to sit here — a
+ * light artwork on a dark hero needs an edge to sit on. The real photograph is
+ * shot on a BLACK ground that matches the hero, so a framed box around it draws
+ * a rectangle where the eye expects none, and the bike reads as pasted into a
+ * card rather than sitting in the section. Losing the frame is what stops it
+ * looking isolated.
+ *
+ * If a light-ground image is ever placed here, the frame needs to come back —
+ * see `resolveThemedImage` for how the two versions are chosen.
+ */
 .mediaFrame {
   position: relative;
   border-radius: var(--bw-radius-2xl);
   overflow: hidden;
-  border: 1px solid var(--bw-color-border-inverse);
-  box-shadow: var(--bw-shadow-xl);
 }
 
 .image {
@@ -108,10 +119,14 @@
  * lower half of the frame is where the bike is, and covering a wheel made the
  * illustration read as broken rather than layered.
  */
+/*
+ * Bottom-left, not top-left: the scooter's front wheel and headlight sit in the
+ * upper-left of the frame, and the badge was covering them.
+ */
 .badge {
   position: absolute;
-  inset-block-start: var(--bw-space-6);
-  inset-inline-start: var(--bw-space-6);
+  inset-block-end: var(--bw-space-5);
+  inset-inline-start: var(--bw-space-5);
   display: flex;
   flex-direction: column;
   gap: var(--bw-space-1);

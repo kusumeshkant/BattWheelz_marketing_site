@@ -100,7 +100,7 @@ Everything below is deliberately placeholder. `grep -rn "PLACEHOLDER" src/` find
 | Real domain | `seo.siteUrl` in `siteContent.js` | **Set before generating the sitemap** |
 | OG card | `public/og-image.png` | Generated placeholder. `node scripts/generate-og-image.mjs` |
 | Contact details | `brand.contact` in `siteContent.js` | Address feeds the JSON-LD |
-| **Stat figures** | `home.liveStats`, `home.fleetImpact` | Invented. See "Blocking the real launch" below |
+| **Stat figures** | `home.liveStats` | Invented. See "Blocking the real launch" below. (The Impact page's stat row is NOT in this category — those figures are client-supplied.) |
 
 ## Conventions
 
@@ -132,11 +132,13 @@ Everything below is deliberately placeholder. `grep -rn "PLACEHOLDER" src/` find
 | 4 | Why Battwheelz | `WhyChoose` | 4 cards |
 | 5 | How to get started | `HowToStart` | connected 4-step flow |
 | 6 | Savings calculator | `SavingsCalculator` | interactive |
-| 7 | Fleet impact | `FleetImpact` | count-up on scroll |
-| 8 | Rider testimonials | `Testimonials` | **placeholder quotes** |
-| 9 | FAQ | `FaqAccordion` | + FAQPage JSON-LD |
-| 10 | Closing CTA | `ClosingCta` | |
-| 11 | Enquiry form | `ContactSection` | **not wired to a backend** |
+| 7 | Rider testimonials | `Testimonials` | **placeholder quotes** |
+| 8 | FAQ | `FaqAccordion` | + FAQPage JSON-LD |
+| 9 | Closing CTA | `ClosingCta` | |
+| 10 | Enquiry form | `ContactSection` | **not wired to a backend** |
+
+The fleet-impact stat row moved off Home to the Impact page — see
+`impactPage.environmental.stats`. Its figures are client-supplied and real.
 
 **Pages built:** Home, About, Contact, B2B, Rent to own, FoCO (franchise), Last mile
 delivery, Investor relations, Careers.
@@ -181,7 +183,6 @@ something only the client can supply.
 |---|---|---|
 | **Rider testimonials** | `home.testimonials` | Every quote, name and figure is invented. The section renders a visible "illustrative examples" notice for exactly this reason — do not remove it before the quotes are real and consented. Publishing a fabricated endorsement as genuine is a consumer-protection issue. |
 | **Live stats** | `home.liveStats` | Four invented operational figures. |
-| **Fleet impact** | `home.fleetImpact` | Invented, and includes a **CO₂ claim** — unsubstantiated environmental claims are treated as actionable greenwashing in several markets. Renders a disclaimer until verified. |
 | **Savings assumptions** | `home.savings.assumptions` | Eight placeholder cost figures drive a rupee number a rider may act on. Shown to the visitor in-page so the maths is auditable; the client still needs to confirm each one. |
 | **Team members** | `about.team` | All four people are invented — names, roles, bios and portraits. Portraits are deliberately faceless flat illustrations so they cannot pass as photos of real people, and the section renders a visible "placeholder profiles" badge. Needs real, consented team members. |
 | **Roadmap targets** | `about.roadmap` | Written as forward-looking goals rather than history, but the goals themselves are invented. |

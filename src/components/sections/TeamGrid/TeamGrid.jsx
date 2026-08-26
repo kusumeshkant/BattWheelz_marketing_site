@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { about } from "@/content/siteContent";
+import { about } from "@/content/pagesContent";
 import { Icon } from "@/assets/icons";
 import { Section, SectionHeader, Stagger, StaggerItem, AnimatedReveal } from "@/components/common";
 import clsx from "@/utils/clsx";

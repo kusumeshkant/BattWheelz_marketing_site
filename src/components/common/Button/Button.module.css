@@ -111,3 +111,20 @@
 .button:hover .icon {
   transform: translateX(3px);
 }
+
+/*
+ * Below the design's 375px floor, a long label on a large button runs past the
+ * viewport: "Enquire about a franchise" measured 315px inside a 288px column,
+ * because `white-space: nowrap` forbids wrapping and `size-lg` adds 80px of
+ * horizontal padding. Narrow screens trade the single-line shape for fitting.
+ */
+@media (max-width: 400px) {
+  .button {
+    white-space: normal;
+    max-inline-size: 100%;
+  }
+
+  .size-lg {
+    padding-inline: var(--bw-space-5);
+  }
+}

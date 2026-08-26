@@ -1,0 +1,41 @@
+/*
+ * Name chips, not logo tiles. The visual weight is deliberately even across
+ * every name — a logo wall implies endorsement and ranks brands by how bold
+ * their mark is; a row of identical chips just states who the partners are.
+ */
+
+.list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--bw-space-3);
+  margin-block-start: var(--bw-space-6);
+}
+
+.chip {
+  padding: var(--bw-space-3) var(--bw-space-5);
+  border-radius: var(--bw-radius-pill);
+  background-color: var(--bw-color-surface-page);
+  border: 1px solid var(--bw-color-border-subtle);
+  box-shadow: var(--bw-shadow-sm);
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+  white-space: nowrap;
+}
+
+.group {
+  margin-block-start: var(--bw-space-8);
+}
+
+.groupLabel {
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+  letter-spacing: var(--bw-tracking-widest);
+  text-transform: uppercase;
+  text-align: center;
+  color: var(--bw-color-brand-primary-text);
+}
+
+.group .list {
+  margin-block-start: var(--bw-space-4);
+}

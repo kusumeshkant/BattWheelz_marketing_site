@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { about } from "@/content/siteContent";
+import { about } from "@/content/pagesContent";
 import { Section, Eyebrow, AnimatedReveal } from "@/components/common";
 import styles from "./AboutStory.module.css";
 

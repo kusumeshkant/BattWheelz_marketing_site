@@ -23,6 +23,8 @@ import styles from "./Card.module.css";
  * @param {"default"|"media"} [props.layout]
  * @param {"default"|"raised"|"inverse"} [props.tone]
  * @param {boolean} [props.interactive] Hover lift. Implied by `href`.
+ * @param {number} [props.index] Optional ordinal badge, for numbered grids.
+ * @param {string} [props.label] Optional overline above the title.
  * @param {number} [props.headingLevel] Keeps the document outline correct.
  */
 export function Card({
@@ -33,6 +35,8 @@ export function Card({
   layout = "default",
   tone = "default",
   interactive = false,
+  index,
+  label,
   headingLevel = 3,
   className,
   children,
@@ -51,6 +55,13 @@ export function Card({
 
   const content = (
     <>
+      {/* Decorative: the order is already carried by the grid's source order. */}
+      {index ? (
+        <span className={styles.index} aria-hidden="true">
+          {index}
+        </span>
+      ) : null}
+
       {icon ? (
         isMedia ? (
           <span className={styles.mediaBand}>
@@ -64,6 +75,7 @@ export function Card({
       ) : null}
 
       <span className={styles.text}>
+        {label ? <span className={styles.label}>{label}</span> : null}
         <Heading className={styles.title}>{title}</Heading>
         {body ? <p className={styles.body}>{body}</p> : null}
         {children}

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { home } from "@/content/siteContent";
+import { resolveThemedImage } from "@/assets/images";
 import { Icon } from "@/assets/icons";
 import { duration, easing } from "@/theme";
 import { Container, Button, Eyebrow, Stagger, StaggerItem } from "@/components/common";
@@ -46,6 +47,8 @@ function TickIcon() {
  * default via next/image.
  */
 export function Hero() {
+  // The hero is a dark section, so it takes the dark-ground version.
+  const heroImage = resolveThemedImage(hero.image, "dark");
   const prefersReducedMotion = useReducedMotion();
 
   /**
@@ -116,8 +119,8 @@ export function Hero() {
           >
             <motion.div className={styles.mediaFrame} {...floatProps}>
               <Image
-                src={hero.image.src}
-                alt={hero.image.alt}
+                src={heroImage.src}
+                alt={heroImage.alt}
                 className={styles.image}
                 priority
                 sizes="(min-width: 1024px) 48vw, 100vw"

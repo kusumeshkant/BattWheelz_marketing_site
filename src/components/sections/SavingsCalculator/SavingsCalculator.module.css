@@ -51,7 +51,7 @@
   color: var(--bw-color-text-inverse-muted);
 }
 
-/* Shown instead of a figure when a lease would cost the rider more. */
+/* Shown instead of a figure when a subscription would cost the rider more. */
 .negative {
   color: var(--bw-color-status-warning);
   font-size: var(--bw-text-base);

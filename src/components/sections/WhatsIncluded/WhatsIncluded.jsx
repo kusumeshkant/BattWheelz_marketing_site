@@ -5,7 +5,7 @@ import styles from "./WhatsIncluded.module.css";
 const { whatsIncluded } = home;
 
 /**
- * "What's included in your lease" — the tangible contents of the lease.
+ * "What's included" — the tangible contents of the subscription.
  *
  * Cards use the "media" layout — icon band across the top, centred text beneath
  * — and each card is a single link rather than carrying a link inside it: one
