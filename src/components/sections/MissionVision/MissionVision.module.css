@@ -1,0 +1,6 @@
+/* Two cards side by side, matching the reference's 552/552 split. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: var(--bw-space-6);
+}

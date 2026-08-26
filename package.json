@@ -1,0 +1,23 @@
+{
+  "name": "battwheelz-marketing-site",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Battwheelz public marketing website — EV fleet leasing for gig delivery riders.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "framer-motion": "^11.15.0",
+    "next": "^15.1.6",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "devDependencies": {
+    "@eslint/eslintrc": "^3.3.6",
+    "eslint": "^9.18.0",
+    "eslint-config-next": "^15.1.6"
+  }
+}

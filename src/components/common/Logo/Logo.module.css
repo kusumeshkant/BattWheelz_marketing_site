@@ -1,0 +1,26 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  flex: none;
+  /*
+   * The badge has its own black ground and must not be re-tinted, so there is
+   * deliberately no colour rule here — unlike the placeholder mark this
+   * replaced, which inherited `currentColor`.
+   */
+}
+
+.image {
+  display: block;
+  /*
+   * No `inline-size: auto` here. On a replaced element that resolves to the
+   * INTRINSIC width — 2151px for this artwork — and silently ignores the
+   * width/height attributes next/image sets, which blew the header open and
+   * gave the page horizontal scroll. Letting the attributes govern is the fix.
+   */
+  max-inline-size: 100%;
+  transition: transform var(--bw-duration-base) var(--bw-ease-spring);
+}
+
+.logo:hover .image {
+  transform: scale(1.03);
+}

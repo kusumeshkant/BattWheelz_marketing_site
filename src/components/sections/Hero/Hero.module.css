@@ -1,0 +1,242 @@
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-image: var(--bw-color-gradient-hero);
+  color: var(--bw-color-text-inverse);
+  /*
+   * Fills the viewport MINUS the header rather than a flat 100svh — otherwise
+   * the last row of hero content sits exactly one header-height below the fold.
+   * `svh` (not `vh`) so collapsing mobile browser chrome does not do the same.
+   */
+  padding-block: var(--bw-section-md);
+  min-block-size: calc(100svh - var(--bw-layout-header-height));
+  display: flex;
+  align-items: center;
+}
+
+/* Ambient glow. Purely decorative, so it is a pseudo-element, not an <img>. */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset-block-start: -20%;
+  inset-inline-end: -10%;
+  inline-size: 55rem;
+  block-size: 55rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--bw-shadow-color-brand) 0%, transparent 62%);
+  opacity: 0.85;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.grid {
+  display: grid;
+  gap: var(--bw-space-9);
+  align-items: center;
+}
+
+/* Copy column ------------------------------------------------------------- */
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bw-space-6);
+  max-width: 36rem;
+}
+
+.headline {
+  font-size: var(--bw-text-5xl);
+  color: var(--bw-color-text-inverse);
+}
+
+/* The brand-highlighted words inside the h1. */
+.highlight {
+  background-image: var(--bw-color-gradient-brand-on-dark);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ctaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bw-space-4);
+}
+
+.assurances {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bw-space-3) var(--bw-space-6);
+  font-size: var(--bw-text-sm);
+  color: var(--bw-color-text-inverse-secondary);
+}
+
+.assurance {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bw-space-2);
+}
+
+.assuranceTick {
+  flex: none;
+  color: var(--bw-color-brand-primary-on-dark);
+}
+
+/* Media column ------------------------------------------------------------ */
+
+.media {
+  position: relative;
+}
+
+.mediaFrame {
+  position: relative;
+  border-radius: var(--bw-radius-2xl);
+  overflow: hidden;
+  border: 1px solid var(--bw-color-border-inverse);
+  box-shadow: var(--bw-shadow-xl);
+}
+
+.image {
+  inline-size: 100%;
+  block-size: auto;
+}
+
+/*
+ * Floating stat card. Sits top-left, over the empty sky in the artwork — the
+ * lower half of the frame is where the bike is, and covering a wheel made the
+ * illustration read as broken rather than layered.
+ */
+.badge {
+  position: absolute;
+  inset-block-start: var(--bw-space-6);
+  inset-inline-start: var(--bw-space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-1);
+  padding: var(--bw-space-4) var(--bw-space-5);
+  border-radius: var(--bw-radius-lg);
+  background-color: var(--bw-color-surface-glass-on-dark);
+  border: 1px solid var(--bw-color-border-inverse);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.badgeValue {
+  font-family: var(--bw-font-display);
+  font-size: var(--bw-text-2xl);
+  font-weight: var(--bw-weight-bold);
+  line-height: 1;
+  color: var(--bw-color-brand-primary-on-dark);
+}
+
+.badgeLabel {
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+  color: var(--bw-color-text-inverse);
+}
+
+.badgeCaption {
+  font-size: var(--bw-text-xs);
+  color: var(--bw-color-text-inverse-secondary);
+}
+
+/* Scroll hint ------------------------------------------------------------- */
+
+.scrollHint {
+  display: none;
+  align-items: center;
+  gap: var(--bw-space-3);
+  margin-block-start: var(--bw-space-9);
+  font-family: var(--bw-font-mono);
+  font-size: var(--bw-text-xs);
+  letter-spacing: var(--bw-tracking-widest);
+  text-transform: uppercase;
+  color: var(--bw-color-text-muted);
+}
+
+.scrollHintTrack {
+  inline-size: 3rem;
+  block-size: 1px;
+  background-color: var(--bw-color-border-inverse);
+}
+
+/* Desktop ----------------------------------------------------------------- */
+
+@media (min-width: 1024px) {
+  .grid {
+    /*
+     * Copy column slightly wider than the artwork. "Subscribe & Ride" is a
+     * wider label than the CTA it replaced, and at the previous 1 : 1.05 split
+     * the two hero buttons totalled 530px in a 503px column — so they wrapped
+     * and stacked. This gives the row room to sit on one line again.
+     */
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    gap: var(--bw-space-10);
+  }
+
+  .scrollHint {
+    display: flex;
+  }
+}
+
+
+/* Pitch row ---------------------------------------------------------------
+   Full-width band under the hero grid: a short heading plus four points. */
+
+.pitch {
+  margin-block-start: var(--bw-space-9);
+  padding-block-start: var(--bw-space-7);
+  border-block-start: 1px solid var(--bw-color-border-inverse);
+}
+
+.pitchHeading {
+  font-size: var(--bw-text-2xl);
+  color: var(--bw-color-text-inverse);
+  margin-block-end: var(--bw-space-6);
+  max-width: 34rem;
+}
+
+.pitchGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+  gap: var(--bw-space-6) var(--bw-space-5);
+}
+
+.pitchItem {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-2);
+}
+
+.pitchIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  margin-block-end: var(--bw-space-1);
+  border-radius: var(--bw-radius-md);
+  background-color: var(--bw-color-surface-tint-on-dark);
+  color: var(--bw-color-brand-primary-on-dark);
+}
+
+.pitchTitle {
+  font-family: var(--bw-font-display);
+  font-size: var(--bw-text-lg);
+  font-weight: var(--bw-weight-bold);
+  color: var(--bw-color-text-inverse);
+}
+
+.pitchBody {
+  font-size: var(--bw-text-sm);
+  line-height: var(--bw-leading-relaxed);
+  color: var(--bw-color-text-inverse-secondary);
+}
+
+@media (min-width: 1024px) {
+  .pitchGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

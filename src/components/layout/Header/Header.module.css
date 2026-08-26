@@ -1,0 +1,361 @@
+/*
+ * The header follows the site's DARK surfaces — the same ground as the hero and
+ * the footer — rather than being a light island between them. Every colour here
+ * is an inverse token, so the bar is black by the same mechanism that makes the
+ * footer black, not by a hardcoded hex.
+ *
+ * The bar is translucent over whatever it is scrolling above, which means its
+ * effective background is lightest on a LIGHT page (a black scrim over white
+ * composites to roughly #1F1F1F at rest). That composite, not pure black, is the
+ * worst case every text pair below has to clear — scripts/check-contrast.mjs
+ * measures it that way.
+ */
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: var(--bw-z-header);
+  background-color: var(--bw-color-surface-header-scrim-dark);
+  backdrop-filter: blur(14px) saturate(150%);
+  -webkit-backdrop-filter: blur(14px) saturate(150%);
+  border-block-end: 1px solid transparent;
+  transition:
+    border-color var(--bw-duration-base) var(--bw-ease-out),
+    box-shadow var(--bw-duration-base) var(--bw-ease-out),
+    background-color var(--bw-duration-base) var(--bw-ease-out);
+}
+
+/* Applied once the page scrolls: the bar gains an edge and shrinks. */
+.condensed {
+  /*
+   * An inverse edge, not `border-subtle`. A near-white hairline was invisible
+   * under the old white bar and correct there; under a black one it would draw
+   * a bright line across the top of every page.
+   */
+  border-block-end-color: var(--bw-color-border-inverse);
+  box-shadow: var(--bw-shadow-sm);
+  background-color: var(--bw-color-surface-header-scrim-dark-condensed);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bw-space-5);
+  block-size: var(--bw-layout-header-height);
+  /*
+   * Height is what shrinks on scroll. It is animated rather than the logo's
+   * transform because the sticky bar's own box is what the eye reads, and
+   * height here changes only this element's box — nothing below it reflows,
+   * since the header is out of flow.
+   */
+  transition: block-size var(--bw-duration-base) var(--bw-ease-out);
+}
+
+.condensed .inner {
+  block-size: var(--bw-layout-header-height-condensed);
+}
+
+/* Desktop nav ------------------------------------------------------------- */
+
+.nav {
+  display: none;
+}
+
+.navList {
+  display: flex;
+  align-items: center;
+  gap: var(--bw-space-1);
+}
+
+/* Containing block for the dropdown panel. */
+.navItem {
+  position: relative;
+}
+
+.navLink {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: var(--bw-space-2) var(--bw-space-3);
+  border-radius: var(--bw-radius-sm);
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-medium);
+  color: var(--bw-color-text-inverse-secondary);
+  transition: color var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+.navLink:hover {
+  color: var(--bw-color-text-inverse);
+}
+
+/* Underline grows from the centre on hover and stays put when active. */
+.navLink::after {
+  content: "";
+  position: absolute;
+  inset-inline: var(--bw-space-3);
+  inset-block-end: 0.25rem;
+  block-size: 2px;
+  border-radius: var(--bw-radius-pill);
+  background-color: var(--bw-color-brand-primary);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+.navLink:hover::after {
+  transform: scaleX(1);
+}
+
+.navLinkActive {
+  color: var(--bw-color-text-inverse);
+  font-weight: var(--bw-weight-semibold);
+}
+
+.navLinkActive::after {
+  transform: scaleX(1);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--bw-space-3);
+}
+
+.desktopCta {
+  display: none;
+}
+
+/* Mobile menu toggle ------------------------------------------------------ */
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: var(--bw-radius-md);
+  color: var(--bw-color-text-inverse);
+}
+
+/* A white scrim, not `surface-sunken` — that is a light grey chip on a black bar. */
+.toggle:hover {
+  background-color: var(--bw-color-surface-tint-on-dark);
+}
+
+.toggleBars {
+  display: grid;
+  gap: 5px;
+}
+
+.toggleBar {
+  inline-size: 20px;
+  block-size: 2px;
+  border-radius: var(--bw-radius-pill);
+  background-color: currentColor;
+  transition: transform var(--bw-duration-fast) var(--bw-ease-out),
+    opacity var(--bw-duration-instant) linear;
+}
+
+.toggleOpen .toggleBar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.toggleOpen .toggleBar:nth-child(2) {
+  opacity: 0;
+}
+.toggleOpen .toggleBar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile drawer ----------------------------------------------------------- */
+
+/*
+ * The drawer is the header, opened — it hangs directly off the bar and covers
+ * the page. So it takes the header's ground, not the page's: a white sheet
+ * dropping out of a black bar reads as a different component that happened to
+ * appear, and puts a hard seam right under the toggle that opened it.
+ */
+.drawer {
+  position: fixed;
+  inset: var(--bw-layout-header-height) 0 0;
+  z-index: var(--bw-z-overlay);
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-6);
+  padding: var(--bw-space-7) var(--bw-layout-container-gutter) var(--bw-space-9);
+  background-color: var(--bw-color-surface-inverse);
+  overflow-y: auto;
+}
+
+.drawerList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-1);
+}
+
+.drawerLink {
+  display: block;
+  padding: var(--bw-space-4) var(--bw-space-2);
+  border-block-end: 1px solid var(--bw-color-border-inverse);
+  font-family: var(--bw-font-display);
+  font-size: var(--bw-text-2xl);
+  font-weight: var(--bw-weight-semibold);
+  color: var(--bw-color-text-inverse);
+}
+
+/*
+ * Gold, not `brand-primary-text`. The accent that marks the current page is
+ * ember on light surfaces; on black that same ember is ~3.4:1 and fails as body
+ * text, which is exactly what `brand.primaryOnDark` exists for.
+ */
+.drawerLinkActive {
+  color: var(--bw-color-brand-primary-on-dark);
+}
+
+.drawerFooter {
+  margin-block-start: auto;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-4);
+}
+
+.drawerContact {
+  font-size: var(--bw-text-sm);
+  color: var(--bw-color-text-inverse-secondary);
+}
+
+/* Desktop ----------------------------------------------------------------- */
+
+@media (min-width: 1024px) {
+  .nav {
+    display: block;
+  }
+
+  .desktopCta {
+    display: inline-flex;
+  }
+
+  .toggle {
+    display: none;
+  }
+}
+
+
+/* Desktop dropdowns -------------------------------------------------------- */
+
+.groupButton {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bw-space-2);
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.groupChevron {
+  flex: none;
+  transition: transform var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+.groupChevronOpen {
+  transform: rotate(180deg);
+}
+
+/*
+ * The panel stays on the dark side too, for the same reason the drawer does: it
+ * is anchored to the bar and reads as part of it. `surface-inverse-raised` — a
+ * lifted black — rather than the bar's own black, so the panel keeps an edge of
+ * its own where it overlaps the home page's black hero. Against a flat-black bar
+ * on a flat-black hero, a pure-black panel is a shadow and a hairline with
+ * nothing in between.
+ */
+.groupPanel {
+  position: absolute;
+  inset-block-start: calc(100% + var(--bw-space-2));
+  inset-inline-start: 0;
+  z-index: var(--bw-z-overlay);
+  min-inline-size: 15rem;
+  padding: var(--bw-space-2);
+  border-radius: var(--bw-radius-lg);
+  background-color: var(--bw-color-surface-inverse-raised);
+  border: 1px solid var(--bw-color-border-inverse);
+  box-shadow: var(--bw-shadow-lg);
+}
+
+/*
+ * Bridges the gap between the button and the panel. Without it, moving the
+ * pointer down from the button crosses dead space, fires mouseleave, and the
+ * panel closes out from under the cursor.
+ */
+.groupPanel::before {
+  content: "";
+  position: absolute;
+  inset-block-end: 100%;
+  inset-inline: 0;
+  block-size: var(--bw-space-2);
+}
+
+.groupLink {
+  display: block;
+  padding: var(--bw-space-3) var(--bw-space-4);
+  border-radius: var(--bw-radius-md);
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-medium);
+  color: var(--bw-color-text-inverse-secondary);
+  white-space: nowrap;
+  transition:
+    background-color var(--bw-duration-fast) var(--bw-ease-out),
+    color var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+/*
+ * The strong tint, not the subtle one. On a lifted-black panel the 8% scrim is
+ * barely a hover at all; 16% is the first step that reads as a highlight.
+ */
+.groupLink:hover,
+.groupLink:focus-visible {
+  background-color: var(--bw-color-surface-tint-on-dark-strong);
+  color: var(--bw-color-text-inverse);
+}
+
+/* Mobile accordion groups -------------------------------------------------- */
+
+.drawerGroupButton {
+  inline-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bw-space-4);
+  text-align: start;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.drawerChevron {
+  display: inline-flex;
+  flex: none;
+  color: var(--bw-color-brand-primary-on-dark);
+  transition: transform var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+.drawerChevronOpen {
+  transform: rotate(180deg);
+}
+
+.drawerSubList {
+  display: flex;
+  flex-direction: column;
+  padding-block: var(--bw-space-2);
+  padding-inline-start: var(--bw-space-4);
+}
+
+.drawerSubLink {
+  display: block;
+  padding: var(--bw-space-3) var(--bw-space-2);
+  font-size: var(--bw-text-lg);
+  font-weight: var(--bw-weight-medium);
+  color: var(--bw-color-text-inverse-secondary);
+}
+
+.drawerSubLink:hover {
+  color: var(--bw-color-text-inverse);
+}

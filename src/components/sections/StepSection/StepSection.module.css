@@ -1,0 +1,4 @@
+.dark {
+  background-image: var(--bw-color-gradient-hero);
+  color: var(--bw-color-text-inverse);
+}

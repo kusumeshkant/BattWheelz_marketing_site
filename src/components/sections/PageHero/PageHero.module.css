@@ -1,0 +1,56 @@
+/*
+ * The standard opening band for an inner page. Lighter and shorter than the
+ * home hero — an inner page should get to its content quickly.
+ */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--bw-color-surface-raised);
+  padding-block: var(--bw-section-lg);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset-block-start: -40%;
+  inset-inline-end: -14%;
+  inline-size: 42rem;
+  block-size: 42rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--bw-color-brand-primary-soft) 0%, transparent 65%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.inner {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bw-space-5);
+  max-width: 44rem;
+}
+
+.headline {
+  font-size: var(--bw-text-4xl);
+}
+
+.highlight {
+  background-image: var(--bw-color-gradient-accent-sweep);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.subheadline {
+  font-size: var(--bw-text-lg);
+  line-height: var(--bw-leading-relaxed);
+  color: var(--bw-color-text-secondary);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bw-space-4);
+  margin-block-start: var(--bw-space-2);
+}

@@ -1,0 +1,34 @@
+/* Narrow, centred — the reference's closing CTA is 896px and centre-aligned. */
+.section {
+  background-image: var(--bw-color-gradient-hero);
+  color: var(--bw-color-text-inverse);
+}
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--bw-space-5);
+  max-width: 56rem;
+  margin-inline: auto;
+}
+
+.heading {
+  font-size: var(--bw-text-4xl);
+  color: var(--bw-color-text-inverse);
+}
+
+.body {
+  font-size: var(--bw-text-lg);
+  line-height: var(--bw-leading-relaxed);
+  color: var(--bw-color-text-inverse-secondary);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--bw-space-4);
+  margin-block-start: var(--bw-space-2);
+}

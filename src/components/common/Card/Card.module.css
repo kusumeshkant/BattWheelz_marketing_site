@@ -1,0 +1,129 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-3);
+  padding: var(--bw-space-6);
+  /* A card may render as an <a>; keep link colour from leaking in. */
+  color: inherit;
+  text-decoration: none;
+  border-radius: var(--bw-radius-xl);
+  block-size: 100%;
+  transition:
+    transform var(--bw-duration-base) var(--bw-ease-out),
+    border-color var(--bw-duration-base) var(--bw-ease-out),
+    box-shadow var(--bw-duration-base) var(--bw-ease-out);
+}
+
+/* Tones ------------------------------------------------------------------- */
+
+.tone-default {
+  background-color: var(--bw-color-surface-page);
+  border: 1px solid var(--bw-color-border-subtle);
+}
+
+.tone-raised {
+  background-color: var(--bw-color-surface-raised);
+  border: 1px solid var(--bw-color-border-subtle);
+}
+
+.tone-inverse {
+  background-color: var(--bw-color-surface-inverse-raised);
+  border: 1px solid var(--bw-color-border-inverse);
+  color: var(--bw-color-text-inverse);
+}
+
+/* Only cards that DO something get a hover response. */
+.interactive:hover {
+  transform: translateY(-4px);
+  border-color: var(--bw-color-brand-primary-border);
+  box-shadow: var(--bw-shadow-lg);
+}
+
+.tone-inverse.interactive:hover {
+  border-color: var(--bw-color-brand-primary);
+  box-shadow: none;
+}
+
+/* Icon chip --------------------------------------------------------------- */
+
+.icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 3rem;
+  block-size: 3rem;
+  margin-block-end: var(--bw-space-2);
+  border-radius: var(--bw-radius-md);
+  background-color: var(--bw-color-brand-primary-soft);
+  color: var(--bw-color-brand-primary-text);
+}
+
+.tone-inverse .icon {
+  background-color: var(--bw-color-surface-tint-on-dark);
+  color: var(--bw-color-brand-primary-on-dark);
+}
+
+/* Content ----------------------------------------------------------------- */
+
+.text {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-3);
+}
+
+.title {
+  font-size: var(--bw-text-lg);
+  font-weight: var(--bw-weight-semibold);
+  line-height: var(--bw-leading-snug);
+}
+
+.body {
+  color: var(--bw-color-text-secondary);
+  font-size: var(--bw-text-base);
+  line-height: var(--bw-leading-relaxed);
+}
+
+.tone-inverse .body {
+  color: var(--bw-color-text-inverse-secondary);
+}
+
+
+/* Media layout ------------------------------------------------------------
+   Icon sits in a tinted band across the full width of the card top, rounded to
+   the card's own top corners; text is centred beneath it. */
+
+.media {
+  padding: 0 0 var(--bw-space-6);
+  gap: 0;
+  overflow: hidden;
+  text-align: center;
+}
+
+.mediaBand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 100%;
+  /* Fixed ratio so a row of cards has its titles on one line. */
+  aspect-ratio: 16 / 9;
+  margin-block-end: var(--bw-space-5);
+  background-image: var(--bw-color-gradient-brand);
+  color: var(--bw-color-text-on-primary);
+}
+
+.tone-raised .mediaBand,
+.tone-default .mediaBand {
+  /* Softer than the solid brand fill — the icon is the accent, not the panel. */
+  background-image: none;
+  background-color: var(--bw-color-brand-primary-soft);
+  color: var(--bw-color-brand-primary-text);
+}
+
+.media .text {
+  align-items: center;
+  padding-inline: var(--bw-space-6);
+}
+
+.media .body {
+  text-wrap: pretty;
+}

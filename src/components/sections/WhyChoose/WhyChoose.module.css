@@ -1,0 +1,17 @@
+/*
+ * Four operating advantages. A 2x2 on desktop rather than the 3-across of
+ * WhatsIncluded — the copy here is longer, and four cards in a row would set a
+ * measure too narrow to read comfortably.
+ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+  gap: var(--bw-space-5);
+}
+
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--bw-space-6);
+  }
+}

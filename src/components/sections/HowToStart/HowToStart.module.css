@@ -1,0 +1,8 @@
+.section {
+  background-image: var(--bw-color-gradient-hero);
+  color: var(--bw-color-text-inverse);
+}
+
+.actions {
+  margin-block-start: var(--bw-space-8);
+}

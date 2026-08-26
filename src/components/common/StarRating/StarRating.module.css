@@ -1,0 +1,14 @@
+.row {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  line-height: 0;
+}
+
+.empty {
+  fill: var(--bw-color-border-default);
+}
+
+.filled {
+  fill: var(--bw-color-brand-primary);
+}

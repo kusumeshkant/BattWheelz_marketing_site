@@ -1,0 +1,25 @@
+/*
+ * Full-bleed transition band between two sections.
+ *
+ * `display: block` on the svg and a fixed block-size stop the inline-element
+ * descender gap that otherwise leaves a hairline of the page background
+ * showing through between this and the section below.
+ */
+.divider {
+  display: block;
+  inline-size: 100%;
+  block-size: 80px;
+  /* Purely decorative: nothing here should ever be a scroll or focus target. */
+  pointer-events: none;
+  user-select: none;
+}
+
+.flip {
+  transform: scaleY(-1);
+}
+
+@media (max-width: 767px) {
+  .divider {
+    block-size: 48px;
+  }
+}

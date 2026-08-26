@@ -1,0 +1,191 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-6);
+}
+
+/* Reason selector --------------------------------------------------------- */
+
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-3);
+}
+
+.legend {
+  padding: 0;
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+  color: var(--bw-color-text-primary);
+}
+
+.reasons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
+  gap: var(--bw-space-3);
+}
+
+.reason {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-1);
+  padding: var(--bw-space-4);
+  border-radius: var(--bw-radius-lg);
+  border: 1px solid var(--bw-color-border-default);
+  background-color: var(--bw-color-surface-page);
+  cursor: pointer;
+  transition:
+    border-color var(--bw-duration-fast) var(--bw-ease-out),
+    background-color var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+.reason:hover {
+  border-color: var(--bw-color-brand-primary-border);
+}
+
+/*
+ * The radio itself is visually hidden but still present and focusable — that is
+ * what keeps arrow-key navigation, the tab order and screen-reader announcement
+ * working. Styling a div and faking it with click handlers loses all three.
+ */
+.reasonInput {
+  position: absolute;
+  opacity: 0;
+  inline-size: 1px;
+  block-size: 1px;
+}
+
+.reason:has(.reasonInput:checked) {
+  border-color: var(--bw-color-brand-primary);
+  background-color: var(--bw-color-brand-primary-soft);
+}
+
+.reason:has(.reasonInput:focus-visible) {
+  outline: 2px solid var(--bw-color-brand-primary);
+  outline-offset: 2px;
+}
+
+.reasonLabel {
+  font-weight: var(--bw-weight-semibold);
+  font-size: var(--bw-text-base);
+}
+
+.reasonHint {
+  font-size: var(--bw-text-sm);
+  color: var(--bw-color-text-secondary);
+}
+
+/* Fields ------------------------------------------------------------------ */
+
+.fields {
+  display: grid;
+  gap: var(--bw-space-5);
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-2);
+}
+
+.label {
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+  color: var(--bw-color-text-primary);
+}
+
+.optional {
+  font-weight: var(--bw-weight-regular);
+  color: var(--bw-color-text-muted);
+}
+
+.input,
+.textarea {
+  inline-size: 100%;
+  padding: var(--bw-space-3) var(--bw-space-4);
+  min-block-size: 2.75rem;
+  border-radius: var(--bw-radius-md);
+  border: 1px solid var(--bw-color-border-default);
+  background-color: var(--bw-color-surface-page);
+  color: var(--bw-color-text-primary);
+  font-size: var(--bw-text-base);
+  transition: border-color var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+.input::placeholder,
+.textarea::placeholder {
+  color: var(--bw-color-text-muted);
+}
+
+.input:hover,
+.textarea:hover {
+  border-color: var(--bw-color-border-strong);
+}
+
+.input:focus-visible,
+.textarea:focus-visible {
+  outline: 2px solid var(--bw-color-brand-primary);
+  outline-offset: 1px;
+  border-color: var(--bw-color-brand-primary);
+}
+
+.textarea {
+  min-block-size: 7rem;
+  resize: vertical;
+  line-height: var(--bw-leading-normal);
+}
+
+.inputError,
+.inputError:hover {
+  border-color: var(--bw-color-status-danger);
+}
+
+.error {
+  display: flex;
+  align-items: center;
+  gap: var(--bw-space-2);
+  font-size: var(--bw-text-sm);
+  color: var(--bw-color-status-danger-text);
+}
+
+/* Not-wired notice -------------------------------------------------------- */
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--bw-space-3);
+  padding: var(--bw-space-4) var(--bw-space-5);
+  border-radius: var(--bw-radius-lg);
+  background-color: var(--bw-color-surface-sunken);
+  border: 1px dashed var(--bw-color-border-strong);
+  color: var(--bw-color-text-secondary);
+  font-size: var(--bw-text-sm);
+  line-height: var(--bw-leading-relaxed);
+}
+
+.noticeIcon {
+  flex: none;
+  margin-block-start: 0.15em;
+  color: var(--bw-color-status-warning);
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: var(--bw-space-4);
+}
+
+@media (min-width: 640px) {
+  .fields {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Message spans the full width — it is the field people actually write in. */
+  .fieldWide {
+    grid-column: 1 / -1;
+  }
+}

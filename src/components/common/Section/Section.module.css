@@ -1,0 +1,66 @@
+.section {
+  position: relative;
+  padding-block: var(--bw-section-md);
+}
+
+.spacing-sm {
+  padding-block: var(--bw-section-sm);
+}
+.spacing-lg {
+  padding-block: var(--bw-section-lg);
+}
+.spacing-none {
+  padding-block: 0;
+}
+
+/* Surfaces. A section knows which ground it sits on; its children do not. */
+.tone-page {
+  background-color: var(--bw-color-surface-page);
+}
+.tone-raised {
+  background-color: var(--bw-color-surface-raised);
+}
+.tone-sunken {
+  background-color: var(--bw-color-surface-sunken);
+}
+
+.tone-inverse {
+  background-color: var(--bw-color-surface-inverse);
+  color: var(--bw-color-text-inverse);
+}
+
+.tone-gradient {
+  background-image: var(--bw-color-gradient-hero);
+  color: var(--bw-color-text-inverse);
+}
+
+/* Header block ------------------------------------------------------------ */
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-4);
+  margin-bottom: var(--bw-space-8);
+  max-width: var(--bw-layout-container-narrow-max-width);
+}
+
+.headerCentered {
+  margin-inline: auto;
+  text-align: center;
+  align-items: center;
+}
+
+.heading {
+  font-size: var(--bw-text-3xl);
+}
+
+.subheading {
+  color: var(--bw-color-text-secondary);
+  font-size: var(--bw-text-lg);
+  line-height: var(--bw-leading-relaxed);
+}
+
+.tone-inverse .subheading,
+.tone-gradient .subheading {
+  color: var(--bw-color-text-inverse-secondary);
+}

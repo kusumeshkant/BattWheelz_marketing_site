@@ -1,0 +1,21 @@
+/* 4 across on desktop, matching the reference's 296px x 4 row. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(16rem, 100%), 1fr));
+  gap: var(--bw-space-5);
+}
+
+.cardLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bw-space-2);
+  margin-block-start: var(--bw-space-3);
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+  color: var(--bw-color-brand-primary-text);
+}
+
+.cardLink:hover {
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}

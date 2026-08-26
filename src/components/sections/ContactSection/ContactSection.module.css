@@ -1,0 +1,53 @@
+.layout {
+  display: grid;
+  gap: var(--bw-space-8);
+  align-items: start;
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-5);
+}
+
+.asideBody {
+  color: var(--bw-color-text-secondary);
+  font-size: var(--bw-text-lg);
+  line-height: var(--bw-leading-relaxed);
+}
+
+.direct {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-3);
+  padding: var(--bw-space-5);
+  border-radius: var(--bw-radius-lg);
+  background-color: var(--bw-color-surface-raised);
+  border: 1px solid var(--bw-color-border-subtle);
+}
+
+.directRow {
+  display: flex;
+  align-items: center;
+  gap: var(--bw-space-3);
+  font-size: var(--bw-text-base);
+}
+
+.directRow svg {
+  flex: none;
+  color: var(--bw-color-brand-primary-text);
+}
+
+.directRow a:hover {
+  color: var(--bw-color-brand-primary-text);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+@media (min-width: 1024px) {
+  .layout {
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: var(--bw-space-9);
+  }
+}

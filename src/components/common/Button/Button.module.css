@@ -1,0 +1,113 @@
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--bw-space-2);
+  border-radius: var(--bw-radius-pill);
+  font-family: var(--bw-font-body);
+  font-weight: var(--bw-weight-semibold);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  cursor: pointer;
+  /* 44px minimum touch target — WCAG 2.5.8, and the reason nothing here is smaller. */
+  min-block-size: 2.75rem;
+  transition:
+    background-color var(--bw-duration-fast) var(--bw-ease-out),
+    border-color var(--bw-duration-fast) var(--bw-ease-out),
+    color var(--bw-duration-fast) var(--bw-ease-out),
+    box-shadow var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+.button:disabled,
+.button[aria-disabled="true"] {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Sizes ------------------------------------------------------------------- */
+
+.size-sm {
+  padding: var(--bw-space-2) var(--bw-space-5);
+  font-size: var(--bw-text-sm);
+}
+
+.size-md {
+  padding: var(--bw-space-3) var(--bw-space-6);
+  font-size: var(--bw-text-base);
+}
+
+.size-lg {
+  padding: var(--bw-space-4) var(--bw-space-7);
+  font-size: var(--bw-text-lg);
+  min-block-size: 3.25rem;
+}
+
+/* Variants ---------------------------------------------------------------- */
+
+.variant-primary {
+  background-color: var(--bw-color-brand-primary);
+  color: var(--bw-color-text-on-primary);
+  /* Perceivable boundary against a white page — see brand.primaryEdge. The
+     soft brand glow below is decoration and does not count as an edge. */
+  border: 1px solid var(--bw-color-brand-primary-edge);
+  box-shadow: var(--bw-shadow-brand);
+}
+
+.variant-primary:hover {
+  background-color: var(--bw-color-brand-primary-hover);
+  border-color: var(--bw-color-brand-primary-edge);
+}
+
+.variant-secondary {
+  background-color: transparent;
+  color: var(--bw-color-text-primary);
+  border: 1px solid var(--bw-color-border-default);
+}
+
+.variant-secondary:hover {
+  border-color: var(--bw-color-text-primary);
+  background-color: var(--bw-color-surface-raised);
+}
+
+/* For use on the dark hero / inverse sections. */
+.variant-ghostOnDark {
+  background-color: transparent;
+  color: var(--bw-color-text-inverse);
+  border: 1px solid var(--bw-color-border-inverse);
+}
+
+.variant-ghostOnDark:hover {
+  background-color: var(--bw-color-surface-tint-on-dark);
+  border-color: var(--bw-color-brand-primary);
+}
+
+.variant-link {
+  padding-inline: 0;
+  min-block-size: auto;
+  background: none;
+  color: var(--bw-color-brand-primary-text);
+  text-decoration: underline;
+  text-underline-offset: 0.35em;
+  text-decoration-thickness: 1px;
+}
+
+.variant-link:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Modifiers --------------------------------------------------------------- */
+
+.fullWidth {
+  inline-size: 100%;
+}
+
+/* The trailing arrow nudges forward on hover — a small "this goes somewhere" cue. */
+.icon {
+  display: inline-flex;
+  transition: transform var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+.button:hover .icon {
+  transform: translateX(3px);
+}

@@ -1,0 +1,113 @@
+.footer {
+  background-color: var(--bw-color-surface-inverse);
+  color: var(--bw-color-text-inverse-secondary);
+  padding-block: var(--bw-section-md) var(--bw-space-7);
+}
+
+.top {
+  display: grid;
+  gap: var(--bw-space-8);
+  padding-block-end: var(--bw-space-8);
+  border-block-end: 1px solid var(--bw-color-border-inverse);
+}
+
+.brandBlock {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-4);
+  max-width: 30rem;
+}
+
+.blurb {
+  font-size: var(--bw-text-sm);
+  line-height: var(--bw-leading-relaxed);
+}
+
+.contactList {
+  /* <address> is italic by default; the brand voice is not. */
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-2);
+  font-size: var(--bw-text-sm);
+}
+
+.contactList a:hover {
+  color: var(--bw-color-brand-primary-on-dark);
+}
+
+.columns {
+  display: grid;
+  /* Two-up on small screens, four across from the md breakpoint below — four
+     7rem columns would be unreadably narrow on a phone. */
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--bw-space-6) var(--bw-space-5);
+}
+
+.columnTitle {
+  font-family: var(--bw-font-mono);
+  font-size: var(--bw-text-xs);
+  font-weight: var(--bw-weight-medium);
+  letter-spacing: var(--bw-tracking-widest);
+  text-transform: uppercase;
+  color: var(--bw-color-text-inverse);
+  margin-block-end: var(--bw-space-4);
+}
+
+.columnList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-3);
+  font-size: var(--bw-text-sm);
+}
+
+.columnList a {
+  transition: color var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+.columnList a:hover {
+  color: var(--bw-color-brand-primary-on-dark);
+}
+
+/* Bottom bar -------------------------------------------------------------- */
+
+.bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bw-space-4);
+  padding-block-start: var(--bw-space-6);
+  font-size: var(--bw-text-xs);
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bw-space-5);
+}
+
+.legalLinks a:hover {
+  color: var(--bw-color-text-inverse);
+}
+
+.social {
+  display: flex;
+  gap: var(--bw-space-5);
+}
+
+.builtNote {
+  color: var(--bw-color-text-inverse-muted);
+}
+
+@media (min-width: 768px) {
+  .top {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.9fr);
+    gap: var(--bw-space-9);
+  }
+
+  .columns {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--bw-space-5);
+  }
+}

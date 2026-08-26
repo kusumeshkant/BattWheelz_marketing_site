@@ -1,0 +1,112 @@
+.steps {
+  display: grid;
+  gap: var(--bw-space-7);
+  /* Establishes the containing block for the connector line below. */
+  position: relative;
+}
+
+.step {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: var(--bw-space-5);
+  align-items: start;
+}
+
+/*
+ * The connector. Drawn as a pseudo-element on each step rather than as a single
+ * line behind the row, so it automatically follows the layout when the grid
+ * flips from vertical (mobile) to horizontal (desktop) — one rule per axis
+ * instead of an absolutely positioned line that has to be re-measured.
+ */
+.step::before {
+  content: "";
+  position: absolute;
+  background-color: var(--bw-color-border-inverse);
+  /* Mobile: vertical line from below the marker to the next step. */
+  inset-block-start: 3rem;
+  inset-inline-start: 1.25rem;
+  inline-size: 2px;
+  block-size: calc(100% + var(--bw-space-7) - 3rem);
+}
+
+/* No tail on the last step — it would point at nothing. */
+.step:last-child::before {
+  content: none;
+}
+
+.marker {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  border-radius: var(--bw-radius-pill);
+  background-color: var(--bw-color-brand-primary);
+  color: var(--bw-color-text-on-primary);
+  font-family: var(--bw-font-display);
+  font-size: var(--bw-text-lg);
+  font-weight: var(--bw-weight-bold);
+  line-height: 1;
+  /* Sits above the connector line rather than being crossed by it. */
+  position: relative;
+  z-index: var(--bw-z-raised);
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-2);
+  padding-block-start: var(--bw-space-2);
+  line-height: var(--bw-leading-relaxed);
+}
+
+.title {
+  font-size: var(--bw-text-xl);
+}
+
+/* Tones. The connector and the copy invert together; the marker does not —
+   the brand fill reads correctly on either ground. */
+.tone-dark .title {
+  color: var(--bw-color-text-inverse);
+}
+.tone-dark .body {
+  color: var(--bw-color-text-inverse-secondary);
+}
+.tone-dark .step::before {
+  background-color: var(--bw-color-border-inverse);
+}
+
+.tone-light .title {
+  color: var(--bw-color-text-primary);
+}
+.tone-light .body {
+  color: var(--bw-color-text-secondary);
+}
+.tone-light .step::before {
+  background-color: var(--bw-color-border-default);
+}
+
+@media (min-width: 900px) {
+  .steps {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--bw-space-6);
+  }
+
+  .step {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--bw-space-4);
+  }
+
+  /* Desktop: the connector runs horizontally, from this marker to the next. */
+  .step::before {
+    inset-block-start: 1.3125rem;
+    inset-inline-start: 3.25rem;
+    inline-size: calc(100% + var(--bw-space-6) - 3.25rem);
+    block-size: 2px;
+  }
+
+  .body {
+    padding-block-start: 0;
+  }
+}

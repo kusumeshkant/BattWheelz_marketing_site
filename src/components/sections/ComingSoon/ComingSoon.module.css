@@ -1,0 +1,39 @@
+/*
+ * Deliberately plain. This is a placeholder, not a section to polish — the only
+ * job is to look like part of the same site rather than a dead end.
+ */
+
+.wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bw-space-5);
+  max-width: var(--bw-layout-container-narrow-max-width);
+  /* Pushes the footer to the bottom of the viewport on a near-empty page. */
+  min-block-size: 42svh;
+  justify-content: center;
+}
+
+.body {
+  color: var(--bw-color-text-secondary);
+  font-size: var(--bw-text-lg);
+  line-height: var(--bw-leading-relaxed);
+}
+
+.contact {
+  font-style: normal;
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-2);
+  font-size: var(--bw-text-base);
+}
+
+.contact a {
+  color: var(--bw-color-brand-primary-text);
+  text-decoration: underline;
+  text-underline-offset: 0.3em;
+}
+
+.actions {
+  margin-block-start: var(--bw-space-2);
+}

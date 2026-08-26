@@ -1,0 +1,106 @@
+/*
+ * A grid, not a carousel.
+ *
+ * Three quotes fit on a desktop row and stack cleanly on mobile, so a carousel
+ * would add autoplay, focus management, pause controls and swipe handling in
+ * order to show LESS content than the grid already shows. If the count grows
+ * past six, revisit.
+ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
+  gap: var(--bw-space-5);
+  /* Room for the portraits that hang above each card's top edge. */
+  padding-block-start: 2.75rem;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--bw-space-4);
+  block-size: 100%;
+  /* Extra top padding leaves space under the overhanging portrait. */
+  padding: 3.5rem var(--bw-space-6) var(--bw-space-6);
+  border-radius: var(--bw-radius-xl);
+  background-color: var(--bw-color-surface-page);
+  border: 1px solid var(--bw-color-border-subtle);
+}
+
+.quote {
+  flex: 1;
+  padding-block-start: var(--bw-space-3);
+  border-block-start: 1px solid var(--bw-color-border-subtle);
+  inline-size: 100%;
+  font-size: var(--bw-text-lg);
+  line-height: var(--bw-leading-relaxed);
+  color: var(--bw-color-text-primary);
+}
+
+.metric {
+  align-self: center;
+  padding: var(--bw-space-1) var(--bw-space-3);
+  border-radius: var(--bw-radius-pill);
+  background-color: var(--bw-color-brand-primary-soft);
+  color: var(--bw-color-brand-primary-text);
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+}
+
+/*
+ * The portrait straddles the card's top edge — half above it, half inside.
+ * Positioned absolutely so it cannot affect the flex layout of the text below;
+ * the card's 3.5rem top padding is what reserves the space.
+ */
+.avatarWrap {
+  position: absolute;
+  inset-block-start: -2.75rem;
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+  inline-size: 5.5rem;
+  block-size: 5.5rem;
+  border-radius: var(--bw-radius-lg);
+  overflow: hidden;
+  border: 4px solid var(--bw-color-surface-raised);
+  background-color: var(--bw-color-surface-sunken);
+  box-shadow: var(--bw-shadow-md);
+}
+
+.avatar {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+}
+
+.person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--bw-space-2);
+}
+
+.name {
+  font-weight: var(--bw-weight-semibold);
+  font-size: var(--bw-text-base);
+}
+
+.role {
+  font-size: var(--bw-text-sm);
+  color: var(--bw-color-text-secondary);
+}
+
+/* The "these are illustrative" banner. Deliberately visible. */
+.notice {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bw-space-2);
+  margin-block-end: var(--bw-space-6);
+  padding: var(--bw-space-2) var(--bw-space-4);
+  border-radius: var(--bw-radius-pill);
+  background-color: var(--bw-color-surface-sunken);
+  border: 1px dashed var(--bw-color-border-default);
+  color: var(--bw-color-text-secondary);
+  font-size: var(--bw-text-sm);
+}

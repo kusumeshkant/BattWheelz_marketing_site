@@ -1,0 +1,100 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-3);
+  max-width: var(--bw-layout-container-narrow-max-width);
+}
+
+.item {
+  border: 1px solid var(--bw-color-border-subtle);
+  border-radius: var(--bw-radius-lg);
+  background-color: var(--bw-color-surface-page);
+  overflow: hidden;
+  transition: border-color var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+.item:hover {
+  border-color: var(--bw-color-border-default);
+}
+
+.itemOpen {
+  border-color: var(--bw-color-brand-primary-border);
+  background-color: var(--bw-color-surface-raised);
+}
+
+.trigger {
+  inline-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--bw-space-4);
+  padding: var(--bw-space-5) var(--bw-space-5);
+  min-block-size: 3.5rem;
+  text-align: start;
+  font-family: var(--bw-font-display);
+  font-size: var(--bw-text-lg);
+  font-weight: var(--bw-weight-semibold);
+  line-height: var(--bw-leading-snug);
+  color: var(--bw-color-text-primary);
+}
+
+/* Focus ring hugs the row rather than the rounded card edge. */
+.trigger:focus-visible {
+  outline: 2px solid var(--bw-color-brand-primary);
+  outline-offset: -3px;
+  border-radius: var(--bw-radius-lg);
+}
+
+.number {
+  flex: none;
+  color: var(--bw-color-brand-primary-text);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Takes the remaining width so the chevron stays pinned right. */
+.question {
+  flex: 1;
+}
+
+.chevron {
+  flex: none;
+  color: var(--bw-color-brand-primary-text);
+  transition: transform var(--bw-duration-base) var(--bw-ease-out);
+}
+
+.chevronOpen {
+  transform: rotate(180deg);
+}
+
+/*
+ * The panel animates on grid-template-rows rather than max-height.
+ *
+ * max-height animation requires guessing a value larger than the content, which
+ * makes the timing wrong for short answers and clips long ones. `0fr -> 1fr`
+ * animates to the content's real height with no magic number.
+ */
+.panel {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--bw-duration-base) var(--bw-ease-out);
+}
+
+.panelOpen {
+  grid-template-rows: 1fr;
+}
+
+.panelInner {
+  overflow: hidden;
+}
+
+.answer {
+  padding: 0 var(--bw-space-5) var(--bw-space-5);
+  color: var(--bw-color-text-secondary);
+  line-height: var(--bw-leading-relaxed);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel {
+    transition: none;
+  }
+}

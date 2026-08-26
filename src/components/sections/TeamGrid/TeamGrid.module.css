@@ -1,0 +1,204 @@
+/* 2 x 2 on desktop, matching the reference's four-member grid. */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(21rem, 100%), 1fr));
+  gap: var(--bw-space-6);
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--bw-space-7);
+  }
+}
+
+/* Card: photo left, text right ------------------------------------------- */
+
+.card {
+  display: flex;
+  flex-direction: row;
+  block-size: 100%;
+  border-radius: var(--bw-radius-xl);
+  background-color: var(--bw-color-surface-page);
+  border: 1px solid var(--bw-color-border-subtle);
+  /* Clips the sharp-cornered portrait to the card's rounded outer edge. */
+  overflow: hidden;
+  transition:
+    transform var(--bw-duration-base) var(--bw-ease-out),
+    box-shadow var(--bw-duration-base) var(--bw-ease-out),
+    border-color var(--bw-duration-base) var(--bw-ease-out);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--bw-color-brand-primary-border);
+  box-shadow: var(--bw-shadow-lg);
+}
+
+/*
+ * The portrait slot is always SQUARE and pinned to the top of the card.
+ *
+ * It used to stretch to the card's full height, which meant its shape was set
+ * by whoever wrote the longest bio in the row — measured at 200x453 (0.44) for
+ * the second team row against 200x279 for the first. No `object-position` can
+ * frame a head in a slot that shape; the slot itself was the problem. A fixed
+ * square gives every person the same frame regardless of their neighbours.
+ */
+.photoWrap {
+  position: relative;
+  flex: none;
+  align-self: start;
+  inline-size: 42%;
+  max-inline-size: 12.5rem;
+  aspect-ratio: 1;
+  background-color: var(--bw-color-surface-sunken);
+}
+
+.photo {
+  inline-size: 100%;
+  block-size: 100%;
+  object-fit: cover;
+  /*
+   * Faces sit in the UPPER part of a portrait, so a centre crop on a full-body
+   * or event shot cuts the head off and frames the torso. Biasing the crop
+   * upward keeps the face in the slot across every photo we were given.
+   * Per-person tuning is possible without touching CSS — set `photoPosition`
+   * on that person in siteContent.js and it overrides this inline.
+   */
+  object-position: 50% 20%;
+}
+
+.info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-2);
+  padding: var(--bw-space-5);
+  min-inline-size: 0;
+}
+
+.name {
+  font-size: var(--bw-text-lg);
+  text-transform: uppercase;
+  letter-spacing: var(--bw-tracking-tight);
+  line-height: var(--bw-leading-snug);
+}
+
+.role {
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-semibold);
+  color: var(--bw-color-brand-primary-text);
+}
+
+.bio {
+  font-size: var(--bw-text-sm);
+  line-height: var(--bw-leading-relaxed);
+  color: var(--bw-color-text-secondary);
+}
+
+/* Social row -------------------------------------------------------------- */
+
+.socials {
+  display: flex;
+  gap: var(--bw-space-2);
+  margin-block-start: auto;
+  padding-block-start: var(--bw-space-3);
+}
+
+.social {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.25rem;
+  block-size: 2.25rem;
+  border-radius: var(--bw-radius-md);
+  background-color: var(--bw-color-surface-sunken);
+  color: var(--bw-color-text-secondary);
+  transition:
+    background-color var(--bw-duration-fast) var(--bw-ease-out),
+    color var(--bw-duration-fast) var(--bw-ease-out);
+}
+
+a.social:hover {
+  background-color: var(--bw-color-brand-primary);
+  color: var(--bw-color-text-on-primary);
+}
+
+/* No real URL yet — rendered as an inert span, visibly dimmed so it does not
+   invite a click that goes nowhere. */
+.socialInert {
+  opacity: 0.45;
+}
+
+/* Placeholder notice ------------------------------------------------------ */
+
+/* Pull-quote + group image ------------------------------------------------ */
+
+/* Group sub-headings ------------------------------------------------------- */
+
+.group + .group {
+  margin-block-start: var(--bw-space-9);
+}
+
+.groupHeading {
+  margin-block-end: var(--bw-space-6);
+  font-size: var(--bw-text-xl);
+}
+
+/* Founders: circular portrait ---------------------------------------------- */
+
+/*
+ * The founders' cards carry a round portrait instead of the full-bleed square
+ * one. `aspect-ratio` plus `align-self: center` is what makes it a circle: the
+ * default stretched column is card-height and would render as an ellipse.
+ */
+.cardRound .photoWrap {
+  align-self: center;
+  aspect-ratio: 1;
+  block-size: auto;
+  margin-inline-start: var(--bw-space-5);
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+
+/* Stacked list variant ----------------------------------------------------- */
+
+/*
+ * Mentors only: one full-width card per row instead of the shared multi-column
+ * grid. Their bios run from ~200 to ~600 characters, and no column layout reads
+ * cleanly across that spread — a row is only ever as short as its longest card.
+ * One card per row removes the mismatch rather than compensating for it.
+ *
+ * Compound selector so it beats `.grid`'s own column rules wherever they sit in
+ * the file, including inside a media query, without depending on source order.
+ *
+ * `block-size: auto` releases the card's stretch height, which is otherwise
+ * inherited from the grid case and has nothing to stretch against here.
+ */
+.grid.gridStacked {
+  grid-template-columns: 1fr;
+}
+
+.gridStacked .card {
+  block-size: auto;
+}
+
+
+/* Content-height cards ----------------------------------------------------- */
+
+/*
+ * Team members: each card ends where its own content ends, rather than being
+ * stretched to the tallest in its row. With a fixed square portrait, a stretched
+ * card put the extra height BELOW the photo as dead space — the taller card in
+ * each row set a height its neighbour had nothing to fill with.
+ *
+ * `.card` carries `block-size: 100%` for the stretched case; releasing the grid
+ * item alone is not enough, since the card would re-inflate to fill it.
+ */
+.gridAutoHeight {
+  align-items: start;
+}
+
+.gridAutoHeight .card {
+  block-size: auto;
+}

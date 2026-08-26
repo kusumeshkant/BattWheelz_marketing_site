@@ -1,0 +1,17 @@
+/*
+ * Responsive card grid with no breakpoints of its own — `auto-fit` + `minmax`
+ * lets the browser pick the column count, so the same component works for a
+ * 3-across row of six and a 2-across row of four.
+ */
+.grid {
+  display: grid;
+  gap: var(--bw-space-5);
+}
+
+.cols-2 { grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr)); }
+.cols-3 { grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr)); }
+.cols-4 { grid-template-columns: repeat(auto-fit, minmax(min(14rem, 100%), 1fr)); }
+
+@media (min-width: 1024px) {
+  .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--bw-space-6); }
+}

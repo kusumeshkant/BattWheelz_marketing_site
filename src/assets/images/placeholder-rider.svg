@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 720" width="960" height="720" role="img" aria-label="Placeholder illustration of a delivery rider">
+  <!-- PLACEHOLDER ASSET — replace with client photography of a rider. -->
+  <defs>
+    <linearGradient id="bwRiderBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#F4F3F1"/>
+      <stop offset="100%" stop-color="#FFF4D1"/>
+    </linearGradient>
+  </defs>
+  <rect width="960" height="720" fill="url(#bwRiderBg)"/>
+  <circle cx="480" cy="330" r="230" fill="#FFFFFF" fill-opacity="0.55"/>
+  <g transform="translate(330 170)">
+    <!-- helmet + head -->
+    <path d="M150 96a96 96 0 0 1 96 96v18H54v-18a96 96 0 0 1 96-96Z" fill="#FFCC29"/>
+    <rect x="54" y="210" width="192" height="34" rx="16" fill="#8A6A06"/>
+    <!-- torso -->
+    <path d="M150 258c86 0 150 52 150 128v96H0v-96c0-76 64-128 150-128Z" fill="#1F1E1C"/>
+    <!-- hi-vis band -->
+    <rect x="24" y="352" width="252" height="34" rx="16" fill="#FFD75A"/>
+    <!-- bag strap -->
+    <path d="M96 262 232 470" stroke="#DA6220" stroke-width="18" stroke-linecap="round" opacity="0.75"/>
+  </g>
+  <rect x="120" y="596" width="720" height="20" rx="10" fill="#D3D0CB"/>
+</svg>

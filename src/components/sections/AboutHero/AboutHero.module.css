@@ -1,0 +1,107 @@
+/*
+ * Single-column hero on the light ground, unlike the home hero's 2-col split —
+ * an About page opens as an introduction rather than a pitch. The four-item
+ * feature row replaced the prose paragraph and the artwork that sat beside it.
+ */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background-color: var(--bw-color-surface-raised);
+  padding-block: var(--bw-section-lg);
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset-block-start: -30%;
+  inset-inline-end: -12%;
+  inline-size: 46rem;
+  block-size: 46rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, var(--bw-color-brand-primary-soft) 0%, transparent 65%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bw-space-7);
+}
+
+/*
+ * No `max-width: 34rem` here any more — that was the left column's measure in
+ * the old split. Full-bleed copy needs its own limit or the h1 runs the whole
+ * container width and stops being readable.
+ */
+.headline {
+  font-size: var(--bw-text-5xl);
+  max-width: 20ch;
+}
+
+/* The brand-highlighted words inside the h1. */
+.highlight {
+  background-image: var(--bw-color-gradient-accent-sweep);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* Feature row ------------------------------------------------------------- */
+
+.features {
+  display: grid;
+  gap: var(--bw-space-6);
+  inline-size: 100%;
+}
+
+.feature {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--bw-space-2);
+}
+
+.featureIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  margin-block-end: var(--bw-space-1);
+  border-radius: var(--bw-radius-md);
+  background-color: var(--bw-color-brand-primary-soft);
+  color: var(--bw-color-brand-primary-text);
+}
+
+.featureTitle {
+  font-size: var(--bw-text-lg);
+  line-height: var(--bw-leading-snug);
+}
+
+.featureBody {
+  font-size: var(--bw-text-sm);
+  line-height: var(--bw-leading-relaxed);
+  color: var(--bw-color-text-secondary);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--bw-space-4);
+}
+
+@media (min-width: 768px) {
+  .features {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--bw-space-7);
+  }
+}
+
+@media (min-width: 1024px) {
+  .features {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

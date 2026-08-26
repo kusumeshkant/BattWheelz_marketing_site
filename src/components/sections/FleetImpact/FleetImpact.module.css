@@ -1,0 +1,6 @@
+/* The unverified-figures notice. Muted but present — not hidden. */
+.disclaimer {
+  margin-block-start: var(--bw-space-7);
+  font-size: var(--bw-text-xs);
+  color: var(--bw-color-text-muted);
+}

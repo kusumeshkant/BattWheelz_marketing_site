@@ -1,0 +1,12 @@
+/*
+ * A responsive card grid with no breakpoints of its own.
+ *
+ * `auto-fit` + `minmax` lets the browser choose the column count from the space
+ * available, so this works at every width between 320px and 1440px without a
+ * single media query — and keeps working if a seventh card is added later.
+ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(17rem, 100%), 1fr));
+  gap: var(--bw-space-5);
+}

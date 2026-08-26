@@ -1,0 +1,126 @@
+.wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--bw-space-3);
+}
+
+.labelRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: var(--bw-space-4);
+}
+
+.label {
+  font-size: var(--bw-text-sm);
+  font-weight: var(--bw-weight-medium);
+  color: var(--bw-color-text-inverse-secondary);
+}
+
+.value {
+  font-family: var(--bw-font-display);
+  font-size: var(--bw-text-xl);
+  font-weight: var(--bw-weight-bold);
+  color: var(--bw-color-brand-primary-on-dark);
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * A native <input type="range">, restyled.
+ *
+ * Deliberately not a div-and-drag-handler reimplementation: the native control
+ * is keyboard operable (arrows, Home/End, Page Up/Down), announces itself
+ * correctly to screen readers, and works with touch, all for free. A custom
+ * slider has to rebuild every one of those and usually rebuilds only the first.
+ */
+.input {
+  inline-size: 100%;
+  /* min touch target */
+  block-size: 2.75rem;
+  background: transparent;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.input:focus {
+  outline: none;
+}
+
+/* Track ------------------------------------------------------------------- */
+
+.input::-webkit-slider-runnable-track {
+  block-size: 0.5rem;
+  border-radius: var(--bw-radius-pill);
+  /* `--bw-fill` is set inline from the component's value so the filled portion
+     tracks the thumb without a second element to keep in sync. */
+  background: linear-gradient(
+    to right,
+    var(--bw-color-brand-primary) 0%,
+    var(--bw-color-brand-primary) var(--bw-fill, 50%),
+    var(--bw-color-surface-tint-on-dark-strong) var(--bw-fill, 50%),
+    var(--bw-color-surface-tint-on-dark-strong) 100%
+  );
+}
+
+.input::-moz-range-track {
+  block-size: 0.5rem;
+  border-radius: var(--bw-radius-pill);
+  background: var(--bw-color-surface-tint-on-dark-strong);
+}
+
+.input::-moz-range-progress {
+  block-size: 0.5rem;
+  border-radius: var(--bw-radius-pill);
+  background: var(--bw-color-brand-primary);
+}
+
+/* Thumb ------------------------------------------------------------------- */
+
+.input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  margin-block-start: -0.5rem;
+  border-radius: 50%;
+  background: var(--bw-color-text-inverse);
+  border: 3px solid var(--bw-color-brand-primary);
+  box-shadow: var(--bw-shadow-brand);
+  transition: transform var(--bw-duration-fast) var(--bw-ease-spring);
+}
+
+.input::-moz-range-thumb {
+  inline-size: 1.5rem;
+  block-size: 1.5rem;
+  border-radius: 50%;
+  background: var(--bw-color-text-inverse);
+  border: 3px solid var(--bw-color-brand-primary);
+  box-shadow: var(--bw-shadow-brand);
+}
+
+.input:hover::-webkit-slider-thumb,
+.input:active::-webkit-slider-thumb {
+  transform: scale(1.12);
+}
+
+/* Focus lands on the thumb, not the whole 100%-wide control. */
+.input:focus-visible::-webkit-slider-thumb {
+  outline: 2px solid var(--bw-color-brand-primary-on-dark);
+  outline-offset: 3px;
+}
+
+.input:focus-visible::-moz-range-thumb {
+  outline: 2px solid var(--bw-color-brand-primary-on-dark);
+  outline-offset: 3px;
+}
+
+/* Bounds ------------------------------------------------------------------ */
+
+.bounds {
+  display: flex;
+  justify-content: space-between;
+  font-size: var(--bw-text-xs);
+  color: var(--bw-color-text-inverse-muted);
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,24 @@
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--bw-space-2);
+  font-family: var(--bw-font-mono);
+  font-size: var(--bw-text-xs);
+  font-weight: var(--bw-weight-medium);
+  letter-spacing: var(--bw-tracking-widest);
+  text-transform: uppercase;
+  color: var(--bw-color-brand-primary-text);
+}
+
+/* The small leading dash that reads as a "signal" tick. */
+.eyebrow::before {
+  content: "";
+  inline-size: var(--bw-space-5);
+  block-size: 2px;
+  border-radius: var(--bw-radius-pill);
+  background-image: var(--bw-color-gradient-accent-sweep);
+}
+
+.onDark {
+  color: var(--bw-color-brand-primary-on-dark);
+}
