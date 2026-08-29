@@ -1,7 +1,9 @@
 node_modules/
 .next/
 out/
+out.zip
 build/
+*.zip
 .env
 .env.local
 .env*.local
