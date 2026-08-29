@@ -642,24 +642,16 @@ export const home = {
     groups: [
       {
         label: "EV OEM",
-        names: ["Lectrix", "Intellicar", "BG", "LocoNav", "iPower"],
+        names: ["Lectrix", "Intellicar", "BG", "LocoNav"],
       },
       {
         label: "Capital",
-        names: [
-          "ICICI Bank",
-          "HDFC Bank",
-          "alt.mobility",
-          "AUTOVERT",
-          "Astranova",
-          "Manappuram Finance",
-          "Bansal Credits",
-        ],
+        names: ["ICICI Bank", "alt.mobility", "AUTOVERT", "Astranova"],
       },
       {
         label: "Enterprise customers",
         names: [
-          "BigBasket",
+          "BB Now",
           "Blinkit",
           "Zepto",
           "Instamart",
