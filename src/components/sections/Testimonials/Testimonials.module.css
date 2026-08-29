@@ -10,8 +10,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(min(19rem, 100%), 1fr));
   gap: var(--bw-space-5);
-  /* Room for the portraits that hang above each card's top edge. */
-  padding-block-start: 2.75rem;
+  /* Room for the portraits that hang above each card's top edge — half the
+     avatar's height, so raising the avatar size means raising this too. */
+  padding-block-start: 4rem;
 }
 
 .card {
@@ -22,8 +23,9 @@
   text-align: center;
   gap: var(--bw-space-4);
   block-size: 100%;
-  /* Extra top padding leaves space under the overhanging portrait. */
-  padding: 3.5rem var(--bw-space-6) var(--bw-space-6);
+  /* Extra top padding leaves space under the overhanging portrait; it grew with
+     the avatar so the name never rides up against the photograph. */
+  padding: 4.75rem var(--bw-space-6) var(--bw-space-6);
   border-radius: var(--bw-radius-xl);
   background-color: var(--bw-color-surface-page);
   border: 1px solid var(--bw-color-border-subtle);
@@ -52,26 +54,41 @@
 /*
  * The portrait straddles the card's top edge — half above it, half inside.
  * Positioned absolutely so it cannot affect the flex layout of the text below;
- * the card's 3.5rem top padding is what reserves the space.
+ * the card's top padding is what reserves the space.
+ *
+ * Circular and 8rem across: these are photographs of people now, not the small
+ * placeholder glyphs they replaced, and at the old 5.5rem a cropped face was
+ * too small to read as a specific person. Three sizes are in play and they must
+ * move together — this box, the card's top padding, and the grid's top padding.
+ *
+ * The ring is a white band plus a hairline: the card behind it is also white, so
+ * a plain white border would leave the photo looking pasted onto the card with
+ * no edge at all.
  */
 .avatarWrap {
   position: absolute;
-  inset-block-start: -2.75rem;
+  inset-block-start: -4rem;
   inset-inline-start: 50%;
   transform: translateX(-50%);
-  inline-size: 5.5rem;
-  block-size: 5.5rem;
-  border-radius: var(--bw-radius-lg);
+  inline-size: 8rem;
+  block-size: 8rem;
+  border-radius: var(--bw-radius-pill);
   overflow: hidden;
-  border: 4px solid var(--bw-color-surface-raised);
+  border: 3px solid var(--bw-color-surface-page);
   background-color: var(--bw-color-surface-sunken);
-  box-shadow: var(--bw-shadow-md);
+  box-shadow:
+    0 0 0 1px var(--bw-color-border-subtle),
+    var(--bw-shadow-md);
 }
 
 .avatar {
   inline-size: 100%;
   block-size: 100%;
+  /* `cover` fills the circle whatever the source ratio; the crops are square,
+     so nothing is cut and nothing is stretched. Vertical framing is nudged
+     per-photograph from the image registry. */
   object-fit: cover;
+  object-position: center 45%;
 }
 
 .person {

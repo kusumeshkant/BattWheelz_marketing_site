@@ -37,6 +37,11 @@ import ashishBhatiaSrc from "./portrait-ashish-bhatia.jpeg";
 import sanjivMitalSrc from "./portrait-sanjiv-mital.jpeg";
 import digbijayaMahapatraSrc from "./portrait-digbijaya-mahapatra.jpg";
 
+// Real riders, photographed by the client. See `riderPortraits` below.
+import riderFoodDeliverySrc from "./portrait-rider-food-delivery.jpeg";
+import riderQuickCommerceSrc from "./portrait-rider-quick-commerce.jpeg";
+import riderLastMileSrc from "./portrait-rider-last-mile.jpeg";
+
 /**
  * The unit photograph, supplied in TWO versions — one shot on a dark ground and
  * one on a light ground.
@@ -133,6 +138,42 @@ export const placeholderTeamAvatars = [
  * team avatars — reusing the same four illustrations as both staff and
  * customers on one site reads as an oversight.
  */
+/**
+ * Rider portraits — REAL PHOTOGRAPHS of real riders, supplied by the client as
+ * full-body shots and cropped here to head-and-shoulders (the face was about a
+ * sixth of the original frame, unreadable at avatar size).
+ *
+ * Keyed by the testimonial they belong to, which was decided by the BRAND on
+ * each rider's jacket rather than by position in a list — a positional index
+ * would silently re-pair a face with someone else's quote if the testimonials
+ * were ever reordered.
+ *
+ * `objectPosition` is per-image on purpose: each crop is square and centred, so
+ * these are gentle nudges, and they are the knob to reach for if a face ever
+ * sits badly rather than re-cropping in CSS.
+ *
+ * NOTE: the quotes beside these faces are still invented placeholders, which is
+ * why the section keeps its visible "illustrative examples" notice. Do not pair
+ * a real person's photograph with a fabricated quote without that notice.
+ */
+export const riderPortraits = {
+  foodDelivery: {
+    src: riderFoodDeliverySrc,
+    alt: "A food delivery rider standing with their electric scooter",
+    objectPosition: "center 45%",
+  },
+  quickCommerce: {
+    src: riderQuickCommerceSrc,
+    alt: "A quick-commerce delivery rider seated on their electric scooter",
+    objectPosition: "center 45%",
+  },
+  lastMile: {
+    src: riderLastMileSrc,
+    alt: "A last-mile logistics rider seated on their electric scooter",
+    objectPosition: "center 40%",
+  },
+};
+
 export const placeholderRiderAvatars = [
   { src: placeholderRider1Src, alt: "Illustrated placeholder portrait of a rider" },
   { src: placeholderRider2Src, alt: "Illustrated placeholder portrait of a rider" },
@@ -141,6 +182,7 @@ export const placeholderRiderAvatars = [
 
 const images = {
   unitPhoto,
+  riderPortraits,
   placeholderHero,
   placeholderRider,
   placeholderFleet,

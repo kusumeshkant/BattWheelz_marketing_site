@@ -47,11 +47,18 @@ export function Testimonials({ content = home.testimonials, id = "testimonials" 
               {/* Sits half outside the card; the wrapper reserves the space so
                   the overlap never collides with the text below. */}
               <span className={styles.avatarWrap}>
+                {/*
+                  `objectPosition` comes from the image registry rather than the
+                  stylesheet: it is a property of the photograph (where the face
+                  sits in its frame), not of the layout, so it travels with the
+                  image when one is swapped.
+                */}
                 <Image
                   src={item.avatar.src}
                   alt={item.avatar.alt}
                   className={styles.avatar}
-                  sizes="96px"
+                  style={{ objectPosition: item.avatar.objectPosition }}
+                  sizes="128px"
                 />
               </span>
 

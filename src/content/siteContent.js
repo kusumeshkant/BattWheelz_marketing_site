@@ -26,7 +26,7 @@ import {
   placeholderFleet,
   placeholderHub,
   teamPortraits,
-  placeholderRiderAvatars,
+  riderPortraits,
 } from "@/assets/images";
 
 /* -------------------------------------------------------------------------- */
@@ -522,7 +522,7 @@ export const home = {
         role: "Food delivery, Bengaluru", // PLACEHOLDER
         metric: "₹6,200 saved a month", // PLACEHOLDER
         rating: 5, // PLACEHOLDER
-        avatar: placeholderRiderAvatars[0],
+        avatar: riderPortraits.foodDelivery,
       },
       {
         id: "t2",
@@ -532,7 +532,7 @@ export const home = {
         role: "Quick commerce, Chennai", // PLACEHOLDER
         metric: "14 months on subscription", // PLACEHOLDER
         rating: 4.5, // PLACEHOLDER
-        avatar: placeholderRiderAvatars[1],
+        avatar: riderPortraits.quickCommerce,
       },
       {
         id: "t3",
@@ -542,7 +542,7 @@ export const home = {
         role: "Last-mile logistics, Pune", // PLACEHOLDER
         metric: "120 km on a working day", // PLACEHOLDER
         rating: 5, // PLACEHOLDER
-        avatar: placeholderRiderAvatars[2],
+        avatar: riderPortraits.lastMile,
       },
     ],
   },
