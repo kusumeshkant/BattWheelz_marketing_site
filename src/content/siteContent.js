@@ -518,7 +518,7 @@ export const home = {
         id: "t1",
         quote:
           "I used to lose two days a month to the service centre. Now if something goes wrong I raise a ticket and they sort it at the hub.", // PLACEHOLDER
-        name: "Sneha",
+        name: "Aman",
         role: "Food delivery, Bengaluru", // PLACEHOLDER
         metric: "₹6,200 saved a month", // PLACEHOLDER
         rating: 5, // PLACEHOLDER
@@ -528,7 +528,7 @@ export const home = {
         id: "t2",
         quote:
           "The rate has not changed since the day I got the bike. I know exactly what I owe every week, and I can plan around it.", // PLACEHOLDER
-        name: "Aman",
+        name: "Sneha",
         role: "Quick commerce, Chennai", // PLACEHOLDER
         metric: "14 months on subscription", // PLACEHOLDER
         rating: 4.5, // PLACEHOLDER
