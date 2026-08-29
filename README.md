@@ -45,6 +45,56 @@ separately: wrangler's OAuth token carries zone *metadata* read but **no DNS rec
 permission**, so it returns 403 on `/zones/{zone}/dns_records`. The CNAME is a dashboard job
 (or needs an API token with `Zone > DNS: Edit`).
 
+### Environment variables
+
+All three are `NEXT_PUBLIC_*` and are read in exactly one place, `src/config/env.js`.
+Next inlines them **at build time**, so changing any of them needs a rebuild — a
+redeploy of an existing artefact will not pick them up. `.env.example` is the
+reference copy; copy it to `.env.local` (gitignored) for development.
+
+| Variable | Required | What it does |
+|---|---|---|
+| `NEXT_PUBLIC_SITE_URL` | yes | Canonical links, OG URLs, sitemap.xml. Must match the deployed domain. |
+| `NEXT_PUBLIC_IS_DEMO_ENV` | no | `true` serves the site noindex/nofollow and disallows it in robots.txt. |
+| `NEXT_PUBLIC_WEB3FORMS_KEY` | **yes, for the enquiry form** | Web3Forms access key. Without it the form shows "not connected yet" and sends nothing. |
+
+The first two live in `.env.production`, which **is committed** — they describe the
+deployment, not a secret. `NEXT_PUBLIC_WEB3FORMS_KEY` is kept out of the repo and
+passed in at build time instead (see below).
+
+**The Web3Forms key is public by design.** The form POSTs straight from the browser
+(this is a static export — there is no server to hide anything behind), so the key is
+inlined into the JS bundle and anyone can read it in devtools. Web3Forms documents it
+as public-safe: it only permits sending mail to the address the key is registered to.
+Nothing that is actually secret may go in a `NEXT_PUBLIC_` variable.
+
+### Enquiry form
+
+One component, `common/EnquiryForm`, rendered in two places — the home page's contact
+section and the Contact page. Both POST to `https://api.web3forms.com/submit` from the
+browser; there is no API route and no server runtime, which is what keeps
+`output: "export"` viable.
+
+The `source` prop (`"home"` / `"contact"`) names which form an enquiry came from and
+goes into the email subject: `New enquiry — Home page` / `New enquiry — Contact page`.
+
+If `NEXT_PUBLIC_WEB3FORMS_KEY` is empty the form **does not pretend to send** — it
+shows the not-wired notice instead. Keep that branch: a form that silently swallows
+enquiries is worse than no form at all.
+
+### Deploying
+
+Cloudflare Pages project `battwheelz-marketing` has **no Git integration** — pushing to
+GitHub does not trigger a build. Deploys are a local build plus a wrangler upload:
+
+```bash
+NEXT_PUBLIC_WEB3FORMS_KEY=<key> bash scripts/deploy.sh
+```
+
+The script refuses to run without the key, for the reason above. Build from a **clean
+checkout of the commit you are shipping** (a `git worktree` of it) rather than from a
+working tree carrying unrelated edits — `next build` bundles whatever is on disk.
+
 ### This is a PREVIEW deployment
 
 `.env.production` sets `NEXT_PUBLIC_IS_DEMO_ENV=true`, which serves the whole site

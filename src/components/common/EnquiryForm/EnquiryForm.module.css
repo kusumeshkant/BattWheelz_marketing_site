@@ -152,7 +152,23 @@
   color: var(--bw-color-status-danger-text);
 }
 
-/* Not-wired notice -------------------------------------------------------- */
+/* Submit-state notices ----------------------------------------------------- */
+
+/*
+ * Off-screen rather than `display: none`: a few bots skip inputs that are not
+ * rendered at all, and this one is only useful if they fill it in.
+ */
+.honeypot {
+  position: absolute;
+  inline-size: 1px;
+  block-size: 1px;
+  margin: -1px;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
 
 .notice {
   display: flex;
@@ -171,6 +187,31 @@
   flex: none;
   margin-block-start: 0.15em;
   color: var(--bw-color-status-warning);
+}
+
+/*
+ * Colour is not the only signal on these — each carries its own wording and an
+ * icon, so the outcome still reads for anyone who cannot tell the two borders
+ * apart.
+ */
+.noticeSuccess {
+  border-style: solid;
+  border-color: var(--bw-color-status-success);
+  color: var(--bw-color-text-primary);
+}
+
+.noticeSuccess .noticeIcon {
+  color: var(--bw-color-status-success);
+}
+
+.noticeError {
+  border-style: solid;
+  border-color: var(--bw-color-status-danger);
+  color: var(--bw-color-text-primary);
+}
+
+.noticeError .noticeIcon {
+  color: var(--bw-color-status-danger);
 }
 
 .actions {

@@ -2,6 +2,7 @@
 
 import { useId, useState } from "react";
 import { enquiryForm } from "@/content/siteContent";
+import { web3formsKey } from "@/config/env";
 import { Icon } from "@/assets/icons";
 import Button from "@/components/common/Button";
 import { validateEnquiry } from "@/utils/validators";
@@ -10,18 +11,24 @@ import styles from "./EnquiryForm.module.css";
 
 const EMPTY = { reason: "", name: "", phone: "", email: "", message: "" };
 
+/** Web3Forms' submit endpoint. Client-side POST — no server route involved. */
+const ENDPOINT = "https://api.web3forms.com/submit";
+
 /**
  * The enquiry form. Shared by the home page's contact section and the Contact
  * page, so the two can never drift apart in fields or validation.
  *
- * ========================= NOT CONNECTED TO A BACKEND ========================
- * `handleSubmit` below does NOT send anything anywhere. See the TODO there.
- * Rather than showing a success message that would lead a visitor to believe
- * their enquiry had been received, a valid submit renders a visible notice
- * saying the form is not wired up yet. Do not replace that with a success state
- * until a real endpoint exists — a form that silently swallows enquiries is
- * worse than no form at all.
- * ============================================================================
+ * Submits straight to Web3Forms from the browser, which is what lets this stay
+ * a static export — there is no API route and no server runtime to add one to.
+ * Web3Forms emails the enquiry to whichever address its access key belongs to.
+ *
+ * If no key is configured for the build, the form does NOT pretend to send:
+ * it shows the not-wired notice instead. A form that silently swallows
+ * enquiries is worse than no form at all, so keep that branch.
+ *
+ * The `source` prop names which form the enquiry came from and ends up in the
+ * email subject — the same component renders on two pages and the inbox should
+ * be able to tell them apart.
  *
  * Validation behaviour: errors appear on submit, not on every keystroke, and
  * once a field has an error it re-validates as you type so the message clears
@@ -31,12 +38,14 @@ const EMPTY = { reason: "", name: "", phone: "", email: "", message: "" };
  * @param {object} props
  * @param {boolean} [props.condensed] Drops the message field's height and the
  *        hints under each reason — for the home page's shorter treatment.
+ * @param {"home"|"contact"} [props.source] Which page this instance sits on.
  */
-export function EnquiryForm({ condensed = false }) {
+export function EnquiryForm({ condensed = false, source = "contact" }) {
   const formId = useId();
   const [values, setValues] = useState(EMPTY);
   const [errors, setErrors] = useState({});
-  const [submitted, setSubmitted] = useState(false);
+  /** idle | sending | success | error | unconfigured */
+  const [status, setStatus] = useState("idle");
 
   const setField = (field) => (event) => {
     const { value } = event.target;
@@ -48,9 +57,39 @@ export function EnquiryForm({ condensed = false }) {
     });
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  /**
+   * Builds the payload Web3Forms will turn into an email.
+   *
+   * Keys are the human labels rather than the field names, because Web3Forms
+   * renders every non-reserved key straight into the email body — "Phone
+   * number" reads better than "phone" to whoever opens it. `reason` is sent as
+   * its label for the same reason: "fleet" means nothing in an inbox.
+   */
+  const buildPayload = () => {
+    const reason = enquiryForm.reasons.find((option) => option.id === values.reason);
+    const sourceLabel = enquiryForm.sources[source] ?? source;
 
+    return {
+      access_key: web3formsKey,
+      subject: `${enquiryForm.subjectPrefix} — ${sourceLabel}`,
+      from_name: "Battwheelz website",
+      // Lets whoever picks this up hit reply. Omitted when the (optional)
+      // email field is blank, rather than sent empty.
+      ...(values.email.trim() ? { replyto: values.email.trim() } : {}),
+      [enquiryForm.reasonLabel]: reason?.label ?? values.reason,
+      [enquiryForm.fields.name.label]: values.name.trim(),
+      [enquiryForm.fields.phone.label]: values.phone.trim(),
+      [enquiryForm.fields.email.label]: values.email.trim() || "—",
+      [enquiryForm.fields.message.label]: values.message.trim(),
+      "Sent from": sourceLabel,
+    };
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (status === "sending") return;
+
+    const form = event.currentTarget;
     const nextErrors = validateEnquiry(values);
     setErrors(nextErrors);
 
@@ -59,17 +98,45 @@ export function EnquiryForm({ condensed = false }) {
       // user is taken to the problem rather than left guessing.
       const firstInvalid = document.getElementById(`${formId}-${Object.keys(nextErrors)[0]}`);
       firstInvalid?.focus();
-      setSubmitted(false);
+      setStatus("idle");
       return;
     }
 
-    // TODO: wire to backend endpoint. Nothing is sent — there is no API call
-    // here, no fetch, no mailto. When an endpoint exists, POST `values` to it,
-    // handle the failure case, and only then replace the not-wired notice with
-    // a real success state.
-    // eslint-disable-next-line no-console
-    console.warn("[EnquiryForm] Not wired to a backend. Payload would be:", values);
-    setSubmitted(true);
+    // Honeypot. It is hidden from people and from assistive tech, so anything
+    // that filled it is a bot: drop the submit and show the same success state
+    // rather than telling the bot it was caught.
+    if (new FormData(form).get("botcheck")) {
+      setStatus("success");
+      return;
+    }
+
+    if (!web3formsKey) {
+      setStatus("unconfigured");
+      return;
+    }
+
+    setStatus("sending");
+
+    try {
+      const response = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json", Accept: "application/json" },
+        body: JSON.stringify(buildPayload()),
+      });
+      const result = await response.json().catch(() => ({}));
+
+      if (!response.ok || !result.success) {
+        throw new Error(result.message || `Web3Forms responded ${response.status}`);
+      }
+
+      setStatus("success");
+      setValues(EMPTY);
+      setErrors({});
+    } catch (error) {
+      // eslint-disable-next-line no-console
+      console.error("[EnquiryForm] Submit failed:", error);
+      setStatus("error");
+    }
   };
 
   const errorFor = (field) => (errors[field] ? enquiryForm.errors[errors[field]] : null);
@@ -97,6 +164,7 @@ export function EnquiryForm({ condensed = false }) {
           autoComplete={config.autoComplete}
           value={values[field]}
           onChange={setField(field)}
+          disabled={status === "sending"}
           rows={multiline && condensed ? 3 : undefined}
           aria-invalid={message ? true : undefined}
           aria-describedby={message ? errorId : undefined}
@@ -133,6 +201,7 @@ export function EnquiryForm({ condensed = false }) {
                 id={reason.id === enquiryForm.reasons[0].id ? `${formId}-reason` : undefined}
                 checked={values.reason === reason.id}
                 onChange={setField("reason")}
+                disabled={status === "sending"}
                 aria-describedby={reasonError ? `${formId}-reason-error` : undefined}
               />
               <span className={styles.reasonLabel}>{reason.label}</span>
@@ -156,10 +225,39 @@ export function EnquiryForm({ condensed = false }) {
       </div>
 
       {/*
-        Announced politely when it appears, so a screen-reader user learns the
-        outcome of their submit without having to go looking for it.
+        Spam honeypot. Hidden from sight AND from assistive tech, and skipped in
+        the tab order, so no real person can fill it in by accident — which is
+        what makes a filled one a reliable bot signal.
       */}
-      {submitted ? (
+      <input
+        type="checkbox"
+        name="botcheck"
+        className={styles.honeypot}
+        tabIndex={-1}
+        autoComplete="off"
+        aria-hidden="true"
+      />
+
+      {/*
+        Announced when it appears, so a screen-reader user learns the outcome of
+        their submit without having to go looking for it. The failure is an
+        `alert` rather than a `status`: it needs acting on.
+      */}
+      {status === "success" ? (
+        <p className={clsx(styles.notice, styles.noticeSuccess)} role="status">
+          <Icon name="shield" size={18} className={styles.noticeIcon} />
+          {enquiryForm.successNotice}
+        </p>
+      ) : null}
+
+      {status === "error" ? (
+        <p className={clsx(styles.notice, styles.noticeError)} role="alert">
+          <Icon name="bolt" size={18} className={styles.noticeIcon} />
+          {enquiryForm.errorNotice}
+        </p>
+      ) : null}
+
+      {status === "unconfigured" ? (
         <p className={styles.notice} role="status">
           <Icon name="shield" size={18} className={styles.noticeIcon} />
           {enquiryForm.notWiredNotice}
@@ -167,8 +265,8 @@ export function EnquiryForm({ condensed = false }) {
       ) : null}
 
       <div className={styles.actions}>
-        <Button type="submit" size="lg" withArrow>
-          {enquiryForm.submitLabel}
+        <Button type="submit" size="lg" withArrow disabled={status === "sending"}>
+          {status === "sending" ? enquiryForm.sendingLabel : enquiryForm.submitLabel}
         </Button>
       </div>
     </form>

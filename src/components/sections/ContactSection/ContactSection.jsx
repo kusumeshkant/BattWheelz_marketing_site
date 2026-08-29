@@ -11,16 +11,18 @@ import styles from "./ContactSection.module.css";
  * HTML, and only the interactive behaviour is hydrated.
  *
  * The direct contact details sit alongside the form deliberately. Some people
- * will not fill in a form, and while the form is not wired to a backend these
- * are the only routes that actually reach anyone.
+ * will not fill in a form, and a phone number or an address is what they reach
+ * for instead.
  *
  * @param {object} props
  * @param {boolean} [props.condensed]    The shorter home-page treatment.
  * @param {number} [props.headingLevel]  2 as a band inside another page; pass 1
  *        on the Contact page, where this section IS the page and therefore owns
  *        its only h1. Without this the Contact page would ship with no h1.
+ * @param {"home"|"contact"} [props.source]  Which page this instance is on;
+ *        ends up in the enquiry email's subject line.
  */
-export function ContactSection({ condensed = false, headingLevel = 2 }) {
+export function ContactSection({ condensed = false, headingLevel = 2, source = "contact" }) {
   return (
     <Section id="contact" tone="raised" ariaLabelledBy="contact-heading">
       <SectionHeader
@@ -45,7 +47,7 @@ export function ContactSection({ condensed = false, headingLevel = 2 }) {
           </address>
         </div>
 
-        <EnquiryForm condensed={condensed} />
+        <EnquiryForm condensed={condensed} source={source} />
       </AnimatedReveal>
     </Section>
   );

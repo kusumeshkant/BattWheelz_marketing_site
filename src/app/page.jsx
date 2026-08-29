@@ -49,7 +49,7 @@ export default function HomePage() {
       <Testimonials />
       <FaqAccordion />
       <ClosingCta />
-      <ContactSection condensed />
+      <ContactSection condensed source="home" />
     </>
   );
 }

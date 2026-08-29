@@ -37,6 +37,23 @@ export const isDemoEnv =
   process.env.NEXT_PUBLIC_IS_DEMO_ENV === "true" ||
   process.env.NEXT_PUBLIC_IS_DEMO_ENV === "1";
 
-const env = { siteUrl, isDemoEnv };
+/**
+ * Web3Forms access key — what the enquiry form POSTs with.
+ *
+ * PUBLIC BY DESIGN, and it has to be: the form submits straight from the
+ * browser (this is a static export, there is no server to hide a secret
+ * behind), so the key is inlined into the JS bundle and is readable by anyone
+ * who views source. Web3Forms documents it as public-safe — it only lets a
+ * caller send mail to the address the key is registered to. Do not treat this
+ * as a credential, and do not put anything that IS a credential in a
+ * NEXT_PUBLIC_ variable.
+ *
+ * It lives in an env var rather than inline so a different key can be used per
+ * environment without a code change. Empty when unset — the form checks for
+ * that and refuses to pretend it sent anything. See EnquiryForm.
+ */
+export const web3formsKey = process.env.NEXT_PUBLIC_WEB3FORMS_KEY || "";
+
+const env = { siteUrl, isDemoEnv, web3formsKey };
 
 export default env;

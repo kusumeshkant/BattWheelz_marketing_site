@@ -708,7 +708,8 @@ export const contactPage = {
  * different conversations, and routing them at the point of enquiry is cheaper
  * than triaging later.
  *
- * NOT WIRED TO ANYTHING YET — see the submit handler in the form component.
+ * Submits to Web3Forms, which emails the enquiry to the address its access key
+ * is registered to. See the submit handler in the form component.
  */
 export const enquiryForm = {
   eyebrow: "Talk to us",
@@ -739,9 +740,28 @@ export const enquiryForm = {
   },
   optionalSuffix: "(optional)",
   submitLabel: "Send enquiry",
-  /** Shown in place of a fake success state. See the component's TODO. */
+  sendingLabel: "Sending…",
+  /**
+   * Which form an enquiry came from. Goes into the email subject so whoever
+   * reads the inbox knows where the person was standing when they wrote — the
+   * home page's condensed form and the Contact page are different intents.
+   */
+  subjectPrefix: "New enquiry",
+  sources: {
+    home: "Home page",
+    contact: "Contact page",
+  },
+  successNotice:
+    "Thank you — your enquiry is on its way. We will get back to you on the number you gave us.",
+  errorNotice:
+    "Something went wrong sending that. Please try again, or reach us on the details beside this form.",
+  /**
+   * Shown when no Web3Forms key is configured for this build. Deliberately not
+   * a success message: a form that silently swallows enquiries is worse than no
+   * form at all. See NEXT_PUBLIC_WEB3FORMS_KEY in .env.example.
+   */
   notWiredNotice:
-    "This form is not connected to a backend yet — nothing is sent. Reach us on the details below in the meantime.",
+    "This form is not connected yet — nothing was sent. Reach us on the details below in the meantime.",
   errors: {
     nameRequired: "Please tell us your name.",
     phoneRequired: "We need a phone number to reach you.",
