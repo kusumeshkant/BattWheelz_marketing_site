@@ -50,10 +50,20 @@ export const brand = {
       country: "IN",
     },
   },
+  /**
+   * Rendered in the footer only, as text links. Battwheelz has no YouTube
+   * presence, so there is no entry for one — the list is what exists, not a
+   * fixed set of slots with gaps in it.
+   */
   social: [
-    { label: "LinkedIn", href: "https://www.linkedin.com/" }, // PLACEHOLDER
-    { label: "Instagram", href: "https://www.instagram.com/" }, // PLACEHOLDER
-    { label: "YouTube", href: "https://www.youtube.com/" }, // PLACEHOLDER
+    { label: "LinkedIn", href: "https://www.linkedin.com/company/battwheelz-mobility/" },
+    {
+      label: "Instagram",
+      // The `igsi` parameter is Instagram's share-link tracking token, kept as
+      // the client supplied it; https://www.instagram.com/battwheelzz resolves
+      // to the same profile without it.
+      href: "https://www.instagram.com/battwheelzz?igsi=aTUybjFtNTNraXhj",
+    },
   ],
 };
 
