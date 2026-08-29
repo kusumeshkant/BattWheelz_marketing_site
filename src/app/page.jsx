@@ -40,7 +40,7 @@ export default function HomePage() {
       <WhatsIncluded />
       <LiveStats />
 
-      {/* Partner NAMES only — no logos, pending per-company permission. */}
+      {/* Client-supplied partner logos where we hold artwork; names elsewhere. */}
       <PartnerChips content={home.deliveryPartners} id="delivery-partners" tone="raised" />
       <PartnerChips content={home.ecosystemPartners} id="ecosystem-partners" />
       <WhyChoose />

@@ -1,19 +1,22 @@
+import Image from "next/image";
 import { Section, SectionHeader, Stagger, StaggerItem } from "@/components/common";
+import { partnerLogos } from "@/assets/logos";
 import styles from "./PartnerChips.module.css";
 
 /**
- * Partner names, as TEXT CHIPS.
+ * Partner names, as chips.
  *
- * ================= DELIBERATELY NOT LOGOS =================
- * Every name here belongs to a third party whose mark we do not have permission
- * to display. This component therefore takes no image, has no logo slot, and
- * cannot be pointed at one by passing different content — swapping to real
- * artwork is a code change, which is the point: it forces the permission
- * question to be answered per company first. See the note above
- * `home.deliveryPartners` in siteContent.js.
- * ==========================================================
+ * A chip carries the partner's LOGO where the client has supplied the artwork
+ * (see `@/assets/logos`) and the partner's NAME as text where they have not.
+ * Content stays a flat list of names either way — the registry decides which
+ * shape a given name gets, so adding artwork later is one import there and no
+ * change here or in siteContent.js.
  *
- * Handles both shapes so the two partner sections share one implementation:
+ * Both shapes are laid out to the same chip height so a mixed row reads as one
+ * row rather than two kinds of thing. See the notes in the stylesheet.
+ *
+ * Handles both content shapes so the two partner sections share one
+ * implementation:
  *  - `names`  — a flat list
  *  - `groups` — `{ label, names }`, rendered as labelled rows
  *
@@ -57,15 +60,29 @@ export function PartnerChips({ content, id, tone = "page" }) {
 
 const slug = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
-/** One row of name chips. */
+/** One row of chips — logo where we have one, name where we don't. */
 function ChipList({ names, labelledBy }) {
   return (
     <Stagger as="ul" className={styles.list} stagger={0.04} aria-labelledby={labelledBy}>
-      {names.map((name) => (
-        <StaggerItem as="li" key={name} className={styles.chip}>
-          {name}
-        </StaggerItem>
-      ))}
+      {names.map((name) => {
+        const logo = partnerLogos[name];
+
+        return (
+          <StaggerItem
+            as="li"
+            key={name}
+            className={[styles.chip, logo ? styles.logoChip : null].filter(Boolean).join(" ")}
+          >
+            {logo ? (
+              /* The logo IS the name here, so its alt text carries it — the
+                 chip holds no text of its own to fall back on. */
+              <Image src={logo.src} alt={logo.alt} className={styles.logo} />
+            ) : (
+              name
+            )}
+          </StaggerItem>
+        );
+      })}
     </Stagger>
   );
 }

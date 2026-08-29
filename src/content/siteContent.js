@@ -40,8 +40,8 @@ export const brand = {
   foundedYear: 2024, // PLACEHOLDER
   contact: {
     email: "marketing@battwheelz.com", // PLACEHOLDER
-    phoneDisplay: "+91 00000 00000", // PLACEHOLDER
-    phoneHref: "tel:+910000000000", // PLACEHOLDER
+    phoneDisplay: "+91 85400 41720", // PLACEHOLDER
+    phoneHref: "tel:+918540041720", // PLACEHOLDER
     address: {
       street: "Placeholder Address Line 1", // PLACEHOLDER
       locality: "Bengaluru", // PLACEHOLDER
@@ -529,7 +529,7 @@ export const home = {
         quote:
           "The rate has not changed since the day I got the bike. I know exactly what I owe every week, and I can plan around it.", // PLACEHOLDER
         name: "Rider name", // PLACEHOLDER
-        role: "Quick commerce, Hyderabad", // PLACEHOLDER
+        role: "Quick commerce, Chennai", // PLACEHOLDER
         metric: "14 months on subscription", // PLACEHOLDER
         rating: 4.5, // PLACEHOLDER
         avatar: placeholderRiderAvatars[1],
@@ -592,16 +592,17 @@ export const home = {
   },
 
   /**
-   * ================= PARTNER NAMES ARE RENDERED AS TEXT ONLY =================
-   * These are third-party company names. We do NOT hold permission to display
-   * their logos, so nothing here references a logo file and the sections render
-   * name chips instead.
+   * ===================== PARTNER LISTS ARE NAMES ONLY ========================
+   * Content holds names, never artwork. `@/assets/logos` maps a name to the
+   * logo the client supplied for it, and `PartnerChips` renders a logo chip
+   * where one exists and a name chip where one does not — so a list stays
+   * readable here and adding artwork later touches only the registry.
    *
-   * Swapping any one of these to a real logo requires WRITTEN PERMISSION FROM
-   * THAT COMPANY — per company, not per section. Displaying a partner's mark
-   * without it is a trademark problem, and doing it on a page that implies a
-   * commercial relationship compounds it. The repo's branding rule says the
-   * same thing: no third-party logos or assets.
+   * These are third-party marks, displayed at the client's instruction on the
+   * client's own site. Each one needs PERMISSION FROM THAT COMPANY — per
+   * company, not per section — and displaying a partner's mark on a page that
+   * implies a commercial relationship is exactly where that matters. Confirm
+   * the permission before publishing, not after.
    *
    * Naming a company as a partner is itself a claim. These lists came from the
    * pitch deck; confirm each relationship is real and current before publishing.
@@ -640,8 +641,9 @@ export const home = {
           "HDFC Bank",
           "alt.mobility",
           "AUTOVERT",
-          "MUFIN",
+          "Astranova",
           "Manappuram Finance",
+          "Bansal Credits",
         ],
       },
       {
