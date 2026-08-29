@@ -1,6 +1,7 @@
 import { impactPage } from "@/content/pagesContent";
 import { Icon } from "@/assets/icons";
 import { Section, SectionHeader, Stagger, StaggerItem } from "@/components/common";
+import LiveTracker from "@/components/sections/LiveTracker";
 import styles from "./Impact.module.css";
 
 const impact = impactPage;
@@ -12,9 +13,10 @@ const impact = impactPage;
  * question ("what does this change?") from two directions, and splitting them
  * would put a full section break between halves of one argument.
  *
- * The environmental band carries NO Battwheelz-specific emissions figure. See
- * the note on `impactPage.environmental` in pagesContent.js: the 40% statistic
- * is industry-wide and is phrased that way on purpose.
+ * The environmental band's prose carries no Battwheelz-specific emissions
+ * figure — the 40% statistic is industry-wide and is phrased that way on
+ * purpose. The numbers beneath it come from `LiveTracker`, which derives and
+ * labels them. See the note on `impactPage.environmental` in pagesContent.js.
  */
 export function Impact() {
   const { environmental, riders } = impact;
@@ -29,30 +31,15 @@ export function Impact() {
           align="center"
         />
         <p className={styles.body}>{environmental.body}</p>
-
-        {/*
-          Figures provided directly by the client — real, not placeholders. See
-          the note on `impactPage.environmental.stats`.
-          `placeholder: true` on an item renders an em dash instead of a value,
-          for any future metric that genuinely has no number yet.
-        */}
-        <ul className={styles.stats}>
-          {environmental.stats.map((stat) => (
-            <li key={stat.label} className={styles.stat}>
-              <span className={styles.statIcon} aria-hidden="true">
-                <Icon name={stat.icon} size={22} />
-              </span>
-              <span className={styles.statValue}>
-                {stat.placeholder
-                  ? "—"
-                  : `${stat.prefix ?? ""}${stat.value.toLocaleString("en-IN")}${stat.suffix ?? ""}`}
-              </span>
-              <span className={styles.statLabel}>{stat.label}</span>
-              <span className={styles.statCaption}>{stat.caption}</span>
-            </li>
-          ))}
-        </ul>
       </div>
+
+      {/*
+        Outside the 46rem prose column on purpose. The copy above wants a
+        readable measure; four live counters, each several digits wide, want the
+        full container — inside the narrow column the rupee figure has about
+        180px of track and wraps.
+      */}
+      <LiveTracker content={environmental.tracker} />
 
       <div className={styles.riders}>
         <SectionHeader

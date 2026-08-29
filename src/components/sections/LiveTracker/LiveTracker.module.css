@@ -1,0 +1,125 @@
+.tracker {
+  margin-block-start: var(--bw-space-8);
+}
+
+/*
+ * Four columns on wide screens, two in the middle, one on a phone. The old
+ * static row was a three-up; this is the same visual treatment with a fourth
+ * metric, so it steps 1 -> 2 -> 4 rather than trying to fit four across a
+ * tablet.
+ */
+.stats {
+  display: grid;
+  gap: var(--bw-space-6) var(--bw-space-5);
+  text-align: center;
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--bw-space-1);
+}
+
+.statIcon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  inline-size: 2.75rem;
+  block-size: 2.75rem;
+  margin-block-end: var(--bw-space-2);
+  border-radius: var(--bw-radius-md);
+  background-color: var(--bw-color-brand-primary-soft);
+  color: var(--bw-color-brand-primary-text);
+}
+
+/*
+ * Tabular figures are not optional here. These digits change every frame, and
+ * with proportional numerals the whole row would shuffle sideways continuously.
+ *
+ * A step down from the old static row's `3xl`: these figures are several digits
+ * longer than "48M", and at 3xl the rupee column wrapped in a four-up grid.
+ */
+.statValue {
+  font-family: var(--bw-font-display);
+  font-size: var(--bw-text-2xl);
+  font-weight: var(--bw-weight-bold);
+  line-height: 1;
+  letter-spacing: var(--bw-tracking-tighter);
+  font-variant-numeric: tabular-nums;
+}
+
+.statLabel {
+  font-weight: var(--bw-weight-semibold);
+}
+
+.statCaption {
+  font-size: var(--bw-text-sm);
+  color: var(--bw-color-text-muted);
+}
+
+/*
+ * The honesty line. Small and quiet on purpose — it is labelling, not a
+ * disclaimer block, and a boxed warning under a stat row would read as if
+ * something were wrong with the figures.
+ */
+.caption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--bw-space-2);
+  margin-block-start: var(--bw-space-6);
+  font-size: var(--bw-text-sm);
+  color: var(--bw-color-text-muted);
+}
+
+.pulse {
+  flex: none;
+  inline-size: 0.5rem;
+  block-size: 0.5rem;
+  border-radius: 50%;
+  /* The ember, not the gold: gold measures 1.51:1 on a light surface and the
+     dot would effectively disappear. Same foreground the icon chips use. */
+  background-color: var(--bw-color-brand-primary-text);
+  animation: pulse 2s var(--bw-ease-in-out) infinite;
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+/* The dot is decoration; a visitor who asked for less motion keeps the dot and
+   loses the blink. The counters themselves slow down in the hook. */
+@media (prefers-reduced-motion: reduce) {
+  .pulse {
+    animation: none;
+  }
+}
+
+@media (min-width: 560px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/*
+ * 1140px, not the site's usual 900px, and the number is measured rather than
+ * guessed. The distance figure is the widest at 7.1em, and it gains a ninth
+ * digit at 10 crore km — a few months out at the current rate — which takes it
+ * to about 7.7em. Against the fluid type ramp and the container gutter that
+ * needs ~235px of column, and four columns only clear that from ~1140px up.
+ *
+ * So two-up is the correct layout between 560 and 1140, not a fallback: it is
+ * what stops the widest counter wrapping mid-figure on a small laptop.
+ */
+@media (min-width: 1140px) {
+  .stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}

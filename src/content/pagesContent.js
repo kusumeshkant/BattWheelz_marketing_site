@@ -620,12 +620,16 @@ export const impactPage = {
     path: routes.impact,
   },
   /**
-   * A. ENVIRONMENTAL — deliberately QUALITATIVE.
+   * A. ENVIRONMENTAL — qualitative copy, plus the live tracker.
    *
-   * There is NO Battwheelz CO2-saved figure here, and one must not be added
-   * until the fleet-size and timeline questions are settled. An unsubstantiated
-   * environmental claim is treated as actionable greenwashing in several
-   * markets, and a made-up tonnage is exactly that.
+   * This band DOES now carry a Battwheelz CO2 figure, which it previously did
+   * not. What makes that defensible is that it is derived and labelled: the
+   * tonnage is computed from the stated fleet assumptions in
+   * `utils/sustainability.js`, and the row says on its face that it is a
+   * projection from fleet averages. An unsubstantiated environmental claim is
+   * treated as actionable greenwashing in several markets — so if the label
+   * ever comes off, or the arithmetic ever stops being traceable to published
+   * assumptions, the figure has to go with it.
    *
    * The 40% figure below is an INDUSTRY-WIDE statistic about last-mile
    * delivery generally, phrased as such. It says nothing about Battwheelz's
@@ -636,25 +640,40 @@ export const impactPage = {
     heading: "Cleaner deliveries, kilometre by kilometre",
     body: "Last-mile delivery is one of the largest sources of urban logistics emissions industry-wide — by some estimates up to 40% of the total. Every kilometre ridden electric is a kilometre that does not burn petrol.",
     /**
-     * MERGED STAT ROW. Replaces both the old `home.fleetImpact` band and the
-     * separately-requested KMs / Rs / Carbon row — the same three metrics, so
-     * one row rather than two saying the same thing.
+     * LIVE TRACKER. Copy only — every figure it shows is computed in
+     * `utils/sustainability.js` from one frozen set of fleet assumptions, and
+     * ticks up against the clock. There are no numbers in this object on
+     * purpose, the same way `savings.js` keeps none.
      *
-     * SOURCE: figures provided directly by the client, and confirmed by them as
-     * real. They are NOT placeholders — do not replace them with an em dash or
-     * mark them PLACEHOLDER, and do not "correct" them back to estimates.
+     * WHAT THIS REPLACED. The static three-up row that used to sit here (48M
+     * km, ₹9.2Cr, 7,400t) was supplied and confirmed by the client. Those
+     * values are gone deliberately, at the client's request, in favour of the
+     * live projection — this is NOT the earlier "PLACEHOLDER" marking being
+     * reapplied, and they should not be reinstated alongside the tracker.
      *
-     * They previously carried a visible "estimated, pending verification" line;
-     * that was removed at the client's request once the figures were confirmed.
+     * WHAT THE FIGURES ARE. An extrapolation from fleet averages over elapsed
+     * time. The site has no backend and reads no vehicle data. That is exactly
+     * what `caption` says, and it is the reason it says it — the row must never
+     * be presented as metered telemetry, and the caption must not be reworded
+     * into a claim of measured data.
      *
-     * Their earlier PLACEHOLDER marking, from when this row lived on the home
-     * page as `home.fleetImpact`, was wrong and has been retired.
+     * The industry-wide framing in `body` above still applies: nothing here is
+     * a claim about anyone else's emissions.
      */
-    stats: [
-      { icon: "bolt", value: 48, suffix: "M", label: "Kilometres ridden electric", caption: "across the fleet" },
-      { icon: "rupee", value: 9.2, prefix: "₹", suffix: "Cr", label: "Fuel cost avoided", caption: "fleet-wide" },
-      { icon: "shield", value: 7400, suffix: "t", label: "CO2 emissions avoided", caption: "versus equivalent petrol two-wheelers" },
-    ],
+    tracker: {
+      caption: "Live estimate, projected from fleet averages since 1 April 2026",
+      /**
+       * Keyed by metric, not an array: the display order, the per-second rate
+       * and the precision belong to `LiveTracker`, and the keys are the join
+       * between the two. Adding a metric means adding it in both places.
+       */
+      metrics: {
+        distance: { label: "Kilometres ridden electric", caption: "across the fleet" },
+        petrol: { label: "Petrol avoided", caption: "litres not burned" },
+        co2: { label: "CO₂ emissions avoided", caption: "versus equivalent petrol two-wheelers" },
+        cost: { label: "Fuel cost avoided", caption: "fleet-wide" },
+      },
+    },
   },
   /**
    * B. MICRO ENTREPRENEURS. Labels supplied by the client; no supporting

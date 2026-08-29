@@ -27,6 +27,7 @@ export { default as Roadmap } from "./Roadmap";
 export { default as TeamGrid } from "./TeamGrid";
 export { default as Ecosystem } from "./Ecosystem";
 export { default as Impact } from "./Impact";
+export { default as LiveTracker } from "./LiveTracker";
 export { default as AboutCta } from "./AboutCta";
 
 /* Shared */
