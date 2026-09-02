@@ -6,18 +6,29 @@ supplied would be ~45 MB on a page that currently weighs a fraction of that.
 
 Two transforms, both of which exist because of how the tile renders:
 
-  * CROP TO 16:9, FROM A PER-IMAGE ANCHOR. `Card.module.css` gives `.mediaBand`
-    a fixed `aspect-ratio: 16 / 9` so a row of cards keeps its titles on one
-    line. The sources are 3:2, so ~274px of height has to go. Cropping here
-    rather than leaning on `object-fit: cover` alone means we ship only the
-    pixels that are actually visible — the CSS keeps `cover` as a
-    belt-and-braces guard if the tile ratio is ever changed.
+  * CROP TO 3:2, FROM A PER-IMAGE ANCHOR. `Card.module.css` gives `.mediaBand`
+    a fixed `aspect-ratio: 3 / 2` so a row of cards keeps its titles on one
+    line. Cropping here rather than leaning on `object-fit: cover` alone means
+    we ship only the pixels that are actually visible — the CSS keeps `cover`
+    as a belt-and-braces guard if the tile ratio is ever changed.
+
+    THE TILE RATIO NOW MATCHES THE SOURCES, WHICH IS THE POINT. The band was
+    16:9, which is 274px narrower in height than these 2528x1696 renders — and
+    two of them (the studio shots) hold a bike taller than a 16:9 window can
+    contain, so *something* had to be cut no matter where the window sat. At
+    3:2 the sources are 1.4906 against a 1.5 target: 11px of height, 0.65%,
+    and the studio bikes fit whole. `A_rate_that_cannot_move` is 2528x1682, a
+    hair WIDER than 3:2, so it loses 5px of width instead and nothing vertical.
 
     A centre crop was the first attempt and the client rejected it: these six
     frames do not share a composition. Four of them put the subject's base
     (wheels, the U-lock, the tool tray) within ~30px of the bottom edge, so a
-    centred window shaves it; one is two people whose heads sit near the top.
-    Each image therefore carries its own ANCHOR — see `SELECTIONS`.
+    centred window shaved it; one is two people whose heads sit near the top.
+    Each image therefore carries its own ANCHOR — see `SELECTIONS`. Those
+    anchors now move at most 11px rather than 275px, so they barely bite; they
+    are kept because they still encode which edge matters per frame, and they
+    would matter again immediately if a source were ever re-exported at a
+    different aspect.
   * RESIZE TO 900px WIDE. `next.config.mjs` sets `images: { unoptimized: true }`
     (forced by `output: "export"` — the Next optimizer needs a server), so there
     is no srcset and ONE file serves every breakpoint. 900px covers the widest
@@ -41,8 +52,10 @@ from PIL import Image
 SRC = Path(r"D:\projects\batt_wheelz_project\what_you _get_section Images")
 DST = Path(__file__).resolve().parent.parent / "src" / "assets" / "cardImages"
 
-# The tile's ratio, from `.mediaBand` in Card.module.css.
-OUT_W, OUT_H = 900, 506  # 16:9
+# The tile's ratio, from `.mediaBand` in Card.module.css. Keep the two in step:
+# a mismatch here is not a crash, it is `object-fit: cover` silently re-cropping
+# at render time — the exact thing this script exists to control.
+OUT_W, OUT_H = 900, 600  # 3:2
 QUALITY = 82
 
 IMAGE_EXTS = {".png", ".jpg", ".jpeg", ".gif", ".bmp", ".tif", ".tiff", ".webp"}
@@ -71,13 +84,13 @@ SELECTIONS = {
     "Live GPS tracking": (
         "Live GPS tracking", 4, "live-gps-tracking", 1.0,
     ),
-    # Studio shot: the bike is ~1456px tall against a 1422px window, so it does
-    # not fit whole and something must go. Losing the bottom of a wheel reads as
-    # the bike sinking through the floor; losing the top of the handlebar stalk
-    # does not. 0.80 clears both wheels with floor beneath while trimming less
-    # off the top than a full bottom anchor would.
+    # NEUTRAL, and that is the whole point of moving to 3:2. At 16:9 this bike
+    # was ~1456px tall against a 1422px window: it could not fit, and the 0.80
+    # anchor here was buying a full front wheel at the cost of the handlebar
+    # stalk. The 3:2 window is 1685px, the bike fits whole with room to spare,
+    # so there is nothing left to trade and the anchor goes back to centre.
     "Vehicle and battery": (
-        "Vehicle and battery", 1, "vehicle-and-battery", 0.80,
+        "Vehicle and battery", 1, "vehicle-and-battery", 0.5,
     ),
     # The ONLY top-anchored image. Two people, heads high in the frame — a
     # bottom anchor grazed the left man's hair. What goes instead is their lower
@@ -91,10 +104,12 @@ SELECTIONS = {
     "Servicing and maintenance": (
         "Servicing and maintenance", 2, "servicing-and-maintenance", 1.0,
     ),
-    # Same studio-shot trade-off as Vehicle and battery. The front wheel is the
-    # card's key visual, so it wins over the handlebar stalk.
+    # The one source that is WIDER than the tile (2528x1682 = 1.5030 vs 1.5), so
+    # its 5px crop comes off the width and this vertical anchor is never
+    # consulted. Left at centre to say "no vertical opinion" rather than leaving
+    # the old 0.85 sitting here looking meaningful. Full bike, full front wheel.
     "A rate that cannot move": (
-        "A_rate_that_cannot_move", 2, "a-rate-that-cannot-move", 0.85,
+        "A_rate_that_cannot_move", 2, "a-rate-that-cannot-move", 0.5,
     ),
 }
 
@@ -139,16 +154,24 @@ def main():
 
         with Image.open(chosen) as im:
             im = im.convert("RGB")
-            src_size = im.size
-            slack = src_size[1] - round(src_size[0] / ratio)
+            sw, sh = im.size
             im = crop_to_ratio(im, ratio, anchor)
             im = im.resize((OUT_W, OUT_H), Image.LANCZOS)
             im.save(out, "WEBP", quality=QUALITY, method=6)
 
-        where = {0.0: "top", 0.5: "centre", 1.0: "bottom"}.get(anchor, "bottom-weighted")
+        # Report against the axis actually cropped. A source wider than the tile
+        # loses width and never consults the anchor, so printing a vertical
+        # split for it would be fiction — and it printed a negative one.
+        if sw / sh > ratio:
+            how = f"cut {sw - round(sh * ratio):3}px width (anchor unused)"
+        else:
+            slack = sh - round(sw / ratio)
+            top = max(0, min(slack, round(slack * anchor)))
+            how = f"cut {top:3}px top / {slack - top:3}px bottom"
+
+        where = {0.0: "top", 0.5: "centre", 1.0: "bottom"}.get(anchor, "weighted")
         print(
-            f"{title:28} opt {pick}  anchor {anchor:.2f} ({where}) "
-            f"cut {round(slack * anchor):3}px top / {slack - round(slack * anchor):3}px bottom  "
+            f"{title:28} opt {pick}  anchor {anchor:.2f} ({where:6}) {how}  "
             f"-> {out.name} {out.stat().st_size / 1e3:.0f}KB"
         )
 

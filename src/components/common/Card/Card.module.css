@@ -104,8 +104,18 @@
   align-items: center;
   justify-content: center;
   inline-size: 100%;
-  /* Fixed ratio so a row of cards has its titles on one line. */
-  aspect-ratio: 16 / 9;
+  /*
+   * Fixed ratio so a row of cards has its titles on one line.
+   *
+   * 3:2 rather than 16:9 because that is the native ratio of the card
+   * photography: at 16:9 every source lost 274px of height, and the two studio
+   * shots held a bike taller than the window could contain, so no crop position
+   * could keep them whole. Matching the source ratio removes the problem at the
+   * root instead of choosing which part to sacrifice. If this changes, change
+   * OUT_W/OUT_H in scripts/normalise-card-images.py to match and re-run it —
+   * otherwise `object-fit: cover` below silently re-crops at render time.
+   */
+  aspect-ratio: 3 / 2;
   margin-block-end: var(--bw-space-5);
   background-image: var(--bw-color-gradient-brand);
   color: var(--bw-color-text-on-primary);
