@@ -119,6 +119,30 @@
   color: var(--bw-color-brand-primary-text);
 }
 
+/*
+ * Photo variant of the band. The tinted fill stays underneath as the colour the
+ * tile holds while the image decodes, so a slow connection sees the same soft
+ * brand panel the icon version shows rather than a white hole.
+ */
+.mediaBandPhoto {
+  /* The image is the panel here, so drop the brand fill's inner padding. */
+  padding: 0;
+}
+
+.mediaImage {
+  inline-size: 100%;
+  block-size: 100%;
+  /*
+   * The asset is already centre-cropped to 16:9 by the normalise script, so
+   * `cover` has nothing to trim today. It stays as the guard that matters if
+   * the band's `aspect-ratio` above is ever changed — without it a new ratio
+   * would stretch every photo instead of cropping it.
+   */
+  object-fit: cover;
+  /* Next sets width/height attributes; let the band's box win over them. */
+  display: block;
+}
+
 .media .text {
   align-items: center;
   padding-inline: var(--bw-space-6);

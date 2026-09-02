@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Icon } from "@/assets/icons";
 import clsx from "@/utils/clsx";
 import styles from "./Card.module.css";
@@ -8,8 +9,10 @@ import styles from "./Card.module.css";
  *
  * Two layouts, because two sections want genuinely different things:
  *  - default  — icon in a small chip, text left-aligned. Dense grids.
- *  - "media"  — icon in a full-width tinted band across the top of the card
- *               (rounded to the card's top corners), text centred beneath.
+ *  - "media"  — a full-width band across the top of the card (rounded to the
+ *               card's top corners), text centred beneath. The band holds a
+ *               PHOTO when `image` is given, and falls back to the tinted icon
+ *               tile when it is not.
  *
  * Passing `href` makes the WHOLE card the link rather than adding a link
  * inside it. One target per card is easier to hit on a phone, and it stops a
@@ -17,6 +20,9 @@ import styles from "./Card.module.css";
  *
  * @param {object} props
  * @param {string} [props.icon]     Icon name from the registry in assets/icons.
+ * @param {{src: any, alt: string}} [props.image]
+ *   Photo for the media band, from a registry such as `assets/cardImages`.
+ *   `media` layout only, and takes precedence over `icon` there.
  * @param {string} props.title
  * @param {string} [props.body]
  * @param {string} [props.href]     Makes the entire card a link.
@@ -29,6 +35,7 @@ import styles from "./Card.module.css";
  */
 export function Card({
   icon,
+  image,
   title,
   body,
   href,
@@ -62,7 +69,19 @@ export function Card({
         </span>
       ) : null}
 
-      {icon ? (
+      {isMedia && image ? (
+        /*
+         * A photo fills the band edge to edge. No `sizes` and no `srcset`:
+         * `next.config.mjs` sets `images: { unoptimized: true }` (forced by
+         * `output: "export"`), so Next emits the file as authored and one asset
+         * serves every breakpoint — the responsive sizing is done ahead of time
+         * by `scripts/normalise-card-images.py`. The static import still
+         * carries width and height, which is what keeps the tile from shifting.
+         */
+        <span className={clsx(styles.mediaBand, styles.mediaBandPhoto)}>
+          <Image src={image.src} alt={image.alt} className={styles.mediaImage} />
+        </span>
+      ) : icon ? (
         isMedia ? (
           <span className={styles.mediaBand}>
             <Icon name={icon} size={34} />
